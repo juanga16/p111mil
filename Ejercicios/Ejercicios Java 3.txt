@@ -1,0 +1,17 @@
+1) Realizar un programa que solicite al usuario la cantidad de partidos jugados y puntos realizados por dos jugadores de basquet: Ginobili y Nocioni, luego informar cual de los dos es el de mayor promedio de puntos.
+2) Se desea implementar una caja registradora que soporte las siguientes operaciones: Inicio de caja (donde el cajero ingresa el cambio), ventas (donde se ingresa dinero), gasto (donde se extrae dinero para algun gasto 
+	sin especificar) y cierre de caja (que se realiza al final del dia y se necesita que muestre los siguientes valores: resultado del dia, cantidad de ventas, total de ventas y total de gastos). Estos son los movimientos 
+	de un dia ejemplo: 
+		- Cambio inicial: 500
+		- Venta: 200
+		- Venta: 300
+		- Gasto: 50
+		- Venta: 180
+		- Venta: 250
+		- Venta: 300
+		- Gasto: 125
+		- Venta: 70
+		- Venta: 165
+		- Cierre de caja
+3) Se desea implementar una clase que se va a utilizar en un sistema para el control de accesos a recitales, el estadio tiene una capacidad limitada, se necesita registrar cada vez que una persona entra y saley tambien 
+	necesitariamos saber cual es la capacidad disponible al momento (es decir cuanta mas gente puede ingresar antes de se alcance la capacidad maxima permitida).

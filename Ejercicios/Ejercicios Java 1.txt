@@ -1,0 +1,16 @@
+La pagina web de la ANSES requiere informar los años necesarios de aporte para que las personas puedan solicitar su jubilacion. 
+Se necesita un programa que pida al usuario su genero (M o F) y su edad (entre 0 y 120). Si algun valor invalido es ingresado, debe mostrarse un mensaje de error.
+Las mujeres pueden solicitar la jubilacion a los 60 años y los hombres a partir de los 70 años.
+
+Se necesita un programa que sirva para registrar los goles de las estrellas del futbol en el proximo mundial. 
+En un mundial un jugador puede disputar un minimo de 0 y un maximo de 7 partidos. Un jugador puede realizar 0 o mas goles en un partido.
+El jugador que no juega los 7 partidos es porque: su equipo no jugo la final o el tercer puesto, estuvo lesionado o bien no jugo porque el DT no lo puso.
+El programa se termina si se ingresaron los datos de los 7 partidos o si el usuario ingresa un valor menor a 0.
+
+Una empresa mayorista de Lacteos tiene vendedores que recorren la zona tratando de vender productos a supermercados, colegios y clubes de la zona. 
+Con el objetivo de incentivar las ventas y premiar el esfuerzo la gerencia determino los siguientes porcentajes de comision.
+4% quien venda hasta 20.000 pesos, 6% quien venda hasta 40.000 pesos y el 6% hasta 40.000 pesos ademas del 10% de cada peso que supere esa cifra.
+Se necesita un programa que dado el total de ventas por mes informe la comision correspondiente al vendedor.
+
+Se necesita un programa que dado un numero calcule su factorial.
+https://factorialhr.es/numero-funcion-factorial

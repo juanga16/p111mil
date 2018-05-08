@@ -1,0 +1,35 @@
+1) Se desea implementar un sistema de facturacion para un Autoservicio. El autoservicio tiene tres clases de productos: Productos sin descuento (es decir vale lo mismo se compren 1 o muchas unidades), Productos con descuento
+(si se compran dos unidades la segunda tiene un 25% de decuento, si se compran mas de una salvo la primera todas tienen un %35 de descuento), Productos sin IVA (es decir no se aplica el 21% de cargas fiscales).
+Definir el diagrama de clases necesario para tener Facturas (con un numero correlativo), sus Items (producto y cantidad), es necesario que la factura informe el total a pagar.
+
+Los productos sin descuento son:
+	- Fideos por 1 kg, precio $ 25
+	- Yerba por 1 kg, precio $ 75
+	
+Los productos con descuento son:
+	- Shampoo por 200 ml, precio $ 60
+	- Aceite por 900 ml, precio $ 80
+	- Arroz por 1 kg, precio: $ 25
+	
+Los productos sin iva son:
+	- Leche por 1 litro, $ 20
+	- Queso por 1 kilo, $ 170
+	
+En nuestra clase main, vamos a simular la facturacion de lo siguiente:
+
+Factura 1:
+- 2 paquetes de Fideos
+- 1 paquete de Yerba
+- 3 botellas de Aceite
+- 1 paquete de Arroz
+- 5 litros de Leche
+
+Factura 2:
+- 4 paquetes de Fideos
+- 2 botellas de Shampoo
+- 1 botellas de Aceite
+- 4 paquetes de Arroz
+- 2 litros de Leche
+- 1 kilo de Queso
+
+Imprimir por pantalla el detalle de cada item facturado: cantidad y total, al final imprimir el total de la factura. El IVA se aplica por producto cuando corresponda, no hace falta detallarlo en la factura.

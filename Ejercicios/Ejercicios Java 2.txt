@@ -1,0 +1,5 @@
+1) Hacer un programa que pida al usuario el ingreso de 5 numeros enteros. Al finalizar informar cual es el mayor valor, el menor y el promedio
+2) Hacer un programa que pida al usuario el ingreso de numeros entre 0 y 100. Si el usuario ingresa un valor fuera de ese rango el programa termina. Luego informar la cantidad de numeros validos que se ingresaron.
+3) Hacer un programa que pida al usuario que informe cual es su sueldo bruto, luego informar el sueldo neto y la parte que se deduce de aportes y demas (17%).
+4) Todos los domingos a la noche, el dueño del parripollo ingresa el total de lo facturado por dia considerando 1 al Lunes y 7 al Domingo. Al finalizar se desea informar cual fue el dia de menor facturacion.
+5) Hacer un programa que pida el ingreso de 10 numeros enteros, informar cuales son multiplos de 3 y cuales multiplos de 7. Nota: investigar el uso del operador modulo %.
