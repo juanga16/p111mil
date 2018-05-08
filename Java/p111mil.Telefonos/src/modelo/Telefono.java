@@ -14,8 +14,10 @@ public abstract class Telefono {
     private int numero;
     private String marca;
     
+    private final int PORCENTAJE_IVA = 21;
+    
     private static int cantidadTelefonos = 0;
-    protected static String PREFIJO_SUAREZ = "(02926)";
+    protected static final String PREFIJO_SUAREZ = "(02926)";
 
     public static int getCantidadTelefonos() {
         return cantidadTelefonos;
@@ -49,4 +51,15 @@ public abstract class Telefono {
         // Cada vez que instancio un telefono incremento el contador
         cantidadTelefonos = cantidadTelefonos + 1;
     }    
+        
+    @Override
+    public final boolean equals(Object object) {
+        if ((object == null) || !(object instanceof Telefono)) {
+            return false;
+        }
+        
+        Telefono otroTelefono = (Telefono) object;
+        
+        return this.getNumero() == otroTelefono.getNumero();
+    }
 }

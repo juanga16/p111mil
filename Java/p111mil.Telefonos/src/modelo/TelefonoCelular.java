@@ -56,5 +56,5 @@ public class TelefonoCelular extends Telefono {
     @Override
     public void llamar(int numero) {
         System.out.println("Llamando desde un Telefono Celular al ... " + numero);
-    }
+    }    
 }

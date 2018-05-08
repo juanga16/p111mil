@@ -13,6 +13,11 @@ public class TelefonoPublico extends Telefono {
     // TelefonoPublico hereda de Telefono, un TelefonoPublico a su vez "es un" telefono
     
     private String Ubicacion;
+    private static int centavosPorPulso = 25;
+
+    public static void setCentavosPorPulso(int centavosPorPulso) {
+        TelefonoPublico.centavosPorPulso = centavosPorPulso;
+    }
 
     public TelefonoPublico(int numero) {
         super(numero);
@@ -42,5 +47,5 @@ public class TelefonoPublico extends Telefono {
     @Override
     public void llamar(int numero) {
         System.out.println("Llamando desde un Telefono Publico al ... " + numero);
-    }
+    }    
 }
