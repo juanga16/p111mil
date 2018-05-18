@@ -1,0 +1,28 @@
+1) Un municipio necesita registrar el consumo de agua en el partido de Coronel Suarez: existen tres tipos de lotes: baldios, edificados y rurales. De cada lote se registra: titular, direccion y la localidad. 
+Las localidades pueden ser: Coronel Suarez, Santa Trinidad, San Jose y Santa Maria. De cada localidad se sabe: el nombre, el nombre y apellido del delegado y el telefono del mismo. 
+Se necesita poder calcular el impuesto de cada lote: es decir si informamos el consumo de agua (en m3?), queremos informar el total del impuesto bimestral a pagar.
+
+El impuesto se calcula asi:	consumo de agua * valor del m3 de agua + servicio de cloacas y alumbrado, barrido y limpieza. 
+
+Tabla de valores de m3 de agua:
+	- Baldios: 3 pesos
+	- Edificados: 4 pesos
+	- Rural: 5 pesos
+	
+Tabla de valores Alumbrado, barrio y Limpieza:
+	- Coronel Suarez: 200 pesos
+	- Santa Trinidad: 180 pesos
+	- San Jose: 170 pesos
+	- Santa Maria: 120 pesos
+	
+- Se pide: codear en java las clases aplicando herencia, clases y metodos abstractos, redefinicion de metodos (cuando corresponda). Implementar la funcionalidad para calcular el valor del impuesto bimestral y
+probarlo en el main con al menos tres ejemplos.
+
+2) Una empresa dispone de dos clases de empleados: Supervisores y Operadores. De un supervisor se necesita guardar: nombre, apellido, email y legajo. De un operador se necesita guardar: nombre, apellido, legajo, telefono y numero de documento.
+Un supervisor tiene el siguiente comportamiento: registrar entrada, trabajar, registrar salida y preparar informe. Un operador es capaz de: registrar entrada, trabajar, registrar salida, preparar elementos de trabajo.
+La forma de registrar entrada y registrar salida es la misma para ambos tipos de trabajadores, pero como cumplen diferentes tareas no trabajan de la misma forma. Cuando registran la entrada reciben un comprobante con la hora
+de entrada, dicho comprobante debe ser entregado al momento de registrar la salida.
+Consideramos que dos empleados son iguales si tienen el mismo numero de legajo.
+En la clase main se pide cargar una lista con cinco empleados y luego imprimir los datos en la consola. Probar que dos empleados con el mismo legajo sean identificados como iguales.
+
+- Se pide: codear en java las clases aplicando herencia, clases y metodos abstractos, redefinicion de metodos (cuando corresponda). Sobre escribir los metodos main y equals.

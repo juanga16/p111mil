@@ -17,6 +17,10 @@ public class Persona {
     private String apellido;
     private int edad;
 
+    /**
+     * Devuelve el nombre de la persona
+     * @return 
+     */
     public String getNombre() {
         return nombre;
     }
@@ -64,9 +68,11 @@ public class Persona {
      * Define si la persona es mayor o no de Edad
      * 
      * @author juan.desposito
-     * @return true si la edad es mayor o igual que 18        
+     * @return true si la edad es mayor o igual que 18   
+     * @deprecated
     **/
     public boolean esMayorDeEdad() {
+        // Comentario dentro del metodo. Este comentario no sale en el Javadoc
         return this.edad >= 18;
     }
     
