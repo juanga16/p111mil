@@ -1,0 +1,7 @@
+1) Hacer la clase Seleccion que tenga como propiedades el Nombre, un DirectorTecnico y una lista de Jugadores. 
+Del director tecnico queremos guardar su nombre y la edad. De los jugadores sabemos el nombre y el numero de camiseta.
+Hacer un metodo imprimir para mostrar en consola: el nombre del seleccionado, el nombre del director tecnico y el nombre de cada jugador y su numero de camiseta.
+
+2) Realizar cambios al ejercicio 1). Refactorizarlo de manera que el ArrayList de jugadores sea privado. Agregar dos metodos a la clase seleccion. 
+El primero que dado un numero de camiseta retorne el primero jugador que tenga el mismo numero. El segundo que dado una cantidad de goles, retorne el o los o
+ningun jugador que haya convertido igual o mayor cantidad de goles (para eso debemos agregar en Jugador la propiedad goles convertidos). 
