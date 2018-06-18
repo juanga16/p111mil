@@ -41,6 +41,7 @@ public class FrameInicio extends javax.swing.JFrame {
         buttonMostrarMensaje = new javax.swing.JButton();
         buttonPedirMensaje = new javax.swing.JButton();
         buttonMostrarConfirmacion = new javax.swing.JButton();
+        buttonCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(800, 800));
@@ -80,6 +81,13 @@ public class FrameInicio extends javax.swing.JFrame {
             }
         });
 
+        buttonCerrar.setText("Cerrar");
+        buttonCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCerrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,7 +101,9 @@ public class FrameInicio extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(buttonMostrarModal)
                                 .addGap(18, 18, 18)
-                                .addComponent(buttonMostrarNoModal))
+                                .addComponent(buttonMostrarNoModal)
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonCerrar))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(buttonMostrarMensaje)
                                 .addGap(18, 18, 18)
@@ -116,7 +126,8 @@ public class FrameInicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 394, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonMostrarModal)
-                    .addComponent(buttonMostrarNoModal))
+                    .addComponent(buttonMostrarNoModal)
+                    .addComponent(buttonCerrar))
                 .addContainerGap())
         );
 
@@ -155,6 +166,11 @@ public class FrameInicio extends javax.swing.JFrame {
         }      
     }//GEN-LAST:event_buttonMostrarConfirmacionActionPerformed
 
+    private void buttonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCerrarActionPerformed
+        // Cierro el programa
+        System.exit(0);
+    }//GEN-LAST:event_buttonCerrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -191,6 +207,7 @@ public class FrameInicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonCerrar;
     private javax.swing.JButton buttonMostrarConfirmacion;
     private javax.swing.JButton buttonMostrarMensaje;
     private javax.swing.JButton buttonMostrarModal;
