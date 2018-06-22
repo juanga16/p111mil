@@ -1,0 +1,6 @@
+Diseñar un modelo de tablas para almacenar informacion acerca de actores, directores y peliculas en las que actuaron dirigieron.
+De cada actor se sabe: nombre, apellido, genero (M o F), la fecha de nacimiento y la nacionalidad.
+De cada pelicula se sabe el titulo, el año, el genero (Comedia, Aventura, etc), la puntuacion (0 al 10) y los paises.
+Del director sabemos: nombre, apellido, genero (M o F), la fecha de nacimiento y la nacionalidad.
+Un actor puede actuar en muchas peliculas y logicamente una pelicula tendra varios actores. Cada pelicula debe tener un solo director 
+y a su vez cada pelicula puede tener diferentes nacionalidades.
