@@ -1,3 +1,4 @@
+-- INICIO UNA NUEVA TRANSACTION
 start transaction;
 	
     update persona
@@ -6,6 +7,11 @@ start transaction;
 
 -- rollback;
 commit;
+
+/*
+	ROLLBACK ES PARA DESHACER LA TRANSACCION
+    COMMIT ES PARA CONFIRMAR LA TRANSACCION
+*/
 
 select *
 from persona

@@ -1,7 +1,8 @@
 /*
 	ESTRUCTURA GENERAL:
-    - UPDATE
-    - SET
+    - UPDATE tabla
+    - SET campo1 = valor1,
+			campo2 = valor2
     - WHERE
 */
 

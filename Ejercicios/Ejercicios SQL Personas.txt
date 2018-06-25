@@ -1,0 +1,21 @@
+Usando la base de datos de personas, necesita saber/hacer. Escribir la sentencia SQL e informar el resultado.
+
+1) Mostrar todas las mujeres que vivan en Valencia o en Valladolid.
+
+2) Mostrar el listado de las diez personas mas jovenes, ordenado del mas joven al mas viejo.
+
+3) Mostrar las 5 personas de Madrid con mayor sueldo, pero en vez de mensual calcular el sueldo total de un año.
+
+4) Mostrar las ciudades y cantidad de habitantes, ordenadas por cantidad descendente solamente si tienen mas de 10 personas.
+
+5) Mostrar todas las ciudades que tengan solamente una persona.
+
+6) Mostrar el año y la cantidad de personas de las mujeres de la tabla, ordenado por año descendente.
+
+7) Mostrar el apellido mas repetido y en informar la cantidad.
+
+8) Actualizar el apellido a 'Lopez' y la fecha de nacimiento a 17 de Junio de 1995 del registro con ID 560.
+
+9) Aumentar el sueldo en un 3% de las personas que viven en Barcelona y aumentarlo en un 2% de las personas que viven en Valencia.
+
+10) Insertar dos nuevos registros, la condicion es que todos los campos tengan valores.

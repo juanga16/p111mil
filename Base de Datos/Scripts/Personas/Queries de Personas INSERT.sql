@@ -1,3 +1,11 @@
+/*
+	ESTRUCTURA GENERAL:
+    - INSERT INTO tabla
+    - (campo1, campo2, ..., campo N)
+    - VALUES
+    - (value1, value2, ..., value 3)
+*/
+
 select *
 from persona;
 
