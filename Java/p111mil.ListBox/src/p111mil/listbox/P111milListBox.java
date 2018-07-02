@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package p111mil.combobox;
+package p111mil.listbox;
 
 import java.util.ArrayList;
 import javax.swing.UIManager;
-import p111mil.combobox.model.Usuario;
-import p11mil.combobox.ui.FormularioCombo;
+import p111mil.listbox.model.Usuario;
+import p111mil.listbox.ui.FormularioListBox;
 
 /**
  *
  * @author admin
  */
-public class P111milComboBox {
+public class P111milListBox {
 
     /**
      * @param args the command line arguments
@@ -36,13 +36,14 @@ public class P111milComboBox {
             e.printStackTrace();
         }
         
-        FormularioCombo formularioCombo = new FormularioCombo();
+        FormularioListBox formularioListBox = new FormularioListBox();
         
         /* Pasamos los usuarios al formulario y luego el metodo cargarCombo los carga en el combo */
-        formularioCombo.setUsuarios(usuarios);
-        formularioCombo.cargarCombo();
+        formularioListBox.setUsuarios(usuarios);
+        formularioListBox.cargarListBox();
         
-        formularioCombo.setLocationRelativeTo(null);
-        formularioCombo.setVisible(true);
-    }    
+        formularioListBox.setLocationRelativeTo(null);
+        formularioListBox.setVisible(true);
+    }
+    
 }

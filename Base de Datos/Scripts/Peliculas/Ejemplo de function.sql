@@ -9,11 +9,11 @@ begin
     
     select count(*)
     into cantidad
-    from peliculaPais pp
+    from pelicula_pais pp
     where pp.id_pais = id_pais;
     
     return cantidad;
 end
 $$
 
-select cantidadDePeliculasPorPais(1);
+select cantidadDePeliculasPorPais(6);

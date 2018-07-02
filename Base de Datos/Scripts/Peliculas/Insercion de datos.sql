@@ -7,7 +7,7 @@ values
 ('Estados Unidos');
 
 -- inserto generos
-insert into generoPelicula
+insert into genero
 (nombre)
 values
 ('Drama'),
@@ -26,7 +26,6 @@ values
 ('Oscar', 'Martinez', 'M', '1949-10-23', (select id from pais where nombre = 'Argentina')),
 ('Norma', 'Aleandro', 'F', '1936-05-02', (select id from pais where nombre = 'Argentina'));
 
-
 -- inserto directores
 insert into director
 (nombre, apellido, genero, fecha_nacimiento, id_pais)
@@ -38,29 +37,29 @@ values
 insert into pelicula
 (titulo, anio, puntuacion, id_director)
 values
-('El secreto de sus ojos', 2009, 8.2, 1),
-('Relatos salvajes', 2014, 8.1, 2),
-('El hijo de la novia', 2001, 7.9, 1),
-('El mismo amor, la misma lluvia', 1999, 7.4, 1);
+('El secreto de sus ojos', 2009, 8.2, 3),
+('Relatos salvajes', 2014, 8.1, 4),
+('El hijo de la novia', 2001, 7.9, 4),
+('El mismo amor, la misma lluvia', 1999, 7.4, 4);
 
--- inserto peliculaGeneros
-insert into peliculaGenero
-(id_pelicula, id_generoPelicula)
+-- inserto pelicula_genero
+insert into pelicula_genero
+(id_pelicula, id_genero)
 values
-((select id from pelicula where titulo = 'El secreto de sus ojos'), (select id from generoPelicula where nombre = 'Drama')),
-((select id from pelicula where titulo = 'El secreto de sus ojos'), (select id from generoPelicula where nombre = 'Misterio')),
-((select id from pelicula where titulo = 'El secreto de sus ojos'), (select id from generoPelicula where nombre = 'Romance')),
-((select id from pelicula where titulo = 'Relatos salvajes'), (select id from generoPelicula where nombre = 'Comedia')),
-((select id from pelicula where titulo = 'Relatos salvajes'), (select id from generoPelicula where nombre = 'Drama')),
-((select id from pelicula where titulo = 'Relatos salvajes'), (select id from generoPelicula where nombre = 'Thriller')),
-((select id from pelicula where titulo = 'El hijo de la novia'), (select id from generoPelicula where nombre = 'Comedia')),
-((select id from pelicula where titulo = 'El hijo de la novia'), (select id from generoPelicula where nombre = 'Drama')),
-((select id from pelicula where titulo = 'El mismo amor, la misma lluvia'), (select id from generoPelicula where nombre = 'Comedia')),
-((select id from pelicula where titulo = 'El mismo amor, la misma lluvia'), (select id from generoPelicula where nombre = 'Drama')),
-((select id from pelicula where titulo = 'El mismo amor, la misma lluvia'), (select id from generoPelicula where nombre = 'Romance'));
+((select id from pelicula where titulo = 'El secreto de sus ojos'), (select id from genero where nombre = 'Drama')),
+((select id from pelicula where titulo = 'El secreto de sus ojos'), (select id from genero where nombre = 'Misterio')),
+((select id from pelicula where titulo = 'El secreto de sus ojos'), (select id from genero where nombre = 'Romance')),
+((select id from pelicula where titulo = 'Relatos salvajes'), (select id from genero where nombre = 'Comedia')),
+((select id from pelicula where titulo = 'Relatos salvajes'), (select id from genero where nombre = 'Drama')),
+((select id from pelicula where titulo = 'Relatos salvajes'), (select id from genero where nombre = 'Thriller')),
+((select id from pelicula where titulo = 'El hijo de la novia'), (select id from genero where nombre = 'Comedia')),
+((select id from pelicula where titulo = 'El hijo de la novia'), (select id from genero where nombre = 'Drama')),
+((select id from pelicula where titulo = 'El mismo amor, la misma lluvia'), (select id from genero where nombre = 'Comedia')),
+((select id from pelicula where titulo = 'El mismo amor, la misma lluvia'), (select id from genero where nombre = 'Drama')),
+((select id from pelicula where titulo = 'El mismo amor, la misma lluvia'), (select id from genero where nombre = 'Romance'));
 
--- inserto peliculaPais
-insert into peliculaPais
+-- inserto pelicula_pais
+insert into pelicula_pais
 (id_pelicula, id_pais)
 values
 ((select id from pelicula where titulo = 'El secreto de sus ojos'), (select id from pais where nombre = 'Argentina')),
@@ -73,15 +72,15 @@ values
 ((select id from pelicula where titulo = 'El mismo amor, la misma lluvia'), (select id from pais where nombre = 'Estados Unidos'));
 
 -- inserto actorPeliculas
-insert into peliculaActor
+insert into pelicula_actor
 (id_pelicula, id_actor)
 values
-(1, 1),
-(1, 2),
-(1, 3),
-(2, 1),
-(2, 4),
-(3, 1),
-(3, 5),
-(4, 1),
-(4, 3);
+(5, 6),
+(5, 7),
+(5, 8),
+(6, 6),
+(6, 9),
+(7, 6),
+(8, 10),
+(8, 6),
+(8, 8);

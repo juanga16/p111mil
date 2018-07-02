@@ -1,24 +1,24 @@
 -- Todas las peliculas y todos los actores
 select p.titulo, a.nombre, a.apellido
 from pelicula p
-inner join peliculaActor pa on pa.id_pelicula = p.id
+inner join pelicula_actor pa on pa.id_pelicula = p.id
 inner join actor a on a.id = pa.id_actor;
 
 -- Todos los actores de El secreto de sus ojos
 select *
 from actor a
-inner join peliculaActor pa on pa.id_actor = a.id
-where pa.id_pelicula = 1;
+inner join pelicula_actor pa on pa.id_actor = a.id
+where pa.id_pelicula = 5;
 
 select a.*
 from actor a
-inner join peliculaActor pa on pa.id_actor = a.id
+inner join pelicula_actor pa on pa.id_actor = a.id
 inner join pelicula p on p.id = pa.id_pelicula
 where p.titulo= 'El secreto de sus ojos';
 
 select a.*
 from actor a
-inner join peliculaActor pa on pa.id_actor = a.id
+inner join pelicula_actor pa on pa.id_actor = a.id
 where pa.id_pelicula in (select p.id
 						 from pelicula p
 						 where p.titulo = 'El secreto de sus ojos');
@@ -26,7 +26,7 @@ where pa.id_pelicula in (select p.id
 -- cantidad de peliculas por director
 select d.*, count(*)
 from director d
-inner join pelicula p on p.id_director = p.id
+inner join pelicula p on p.id_director = d.id
 group by d.id
 order by count(*) desc
 

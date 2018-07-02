@@ -12,10 +12,20 @@ Usando la base de datos de personas, necesita saber/hacer. Escribir la sentencia
 
 6) Mostrar el año y la cantidad de personas de las mujeres de la tabla, ordenado por año descendente.
 
-7) Mostrar el apellido mas repetido y en informar la cantidad.
+7) Mostrar el apellido mas repetido e informar la cantidad.
 
 8) Actualizar el apellido a 'Lopez' y la fecha de nacimiento a 17 de Junio de 1995 del registro con ID 560.
 
 9) Aumentar el sueldo en un 3% de las personas que viven en Barcelona y aumentarlo en un 2% de las personas que viven en Valencia.
 
 10) Insertar dos nuevos registros, la condicion es que todos los campos tengan valores.
+
+11) Informar el maximo sueldo de cada ciudad de los nacidos en el año 2000 ordenados por ciudad.
+
+12) Informar el sueldo promedio de varones y de mujeres.
+
+13) Informar todas las personas que hayan nacido el dia de Navidad.
+
+14) Listar solamente nombre y apellidos concatenados en una columna y los telefonos de las personas que viven en Sevilla
+
+15) Borrar el registro con id igual a 980
