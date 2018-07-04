@@ -10,7 +10,7 @@ Usando la base de datos de personas, necesita saber/hacer. Escribir la sentencia
 
 5) Mostrar todas las ciudades que tengan solamente una persona.
 
-6) Mostrar el año y la cantidad de personas de las mujeres de la tabla, ordenado por año descendente.
+6) Mostrar el año y la cantidad de mujeres de la tabla, ordenado por año descendente.
 
 7) Mostrar el apellido mas repetido e informar la cantidad.
 
