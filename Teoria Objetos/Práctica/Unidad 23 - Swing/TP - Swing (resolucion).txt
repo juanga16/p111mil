@@ -1,0 +1,26 @@
+Respuestas TP Swing/AWT	:
+
+1) Crucigrama
+1. Window
+2. FlowLayout
+3. BorderLayout.WEST
+4. setVisible()
+5. Slider
+6. List
+7. AWT
+8. pack(). (Redimensiona automáticamente el tamaño de la ventana al espacio ocupado por los componentes)
+9. Contenedor
+10. Component
+
+
+2) Multiple Choice
+A) B. Abstract Windowing Toolkit
+B) B. Frame
+C) B. Container
+D) A. Swing
+E) C. Manejo de Eventos
+F) D. Todos los anteriores
+G) D. Todos los anteriores
+H) C. Labels
+
+3,4,5,6,7) Adjunto en código fuente
