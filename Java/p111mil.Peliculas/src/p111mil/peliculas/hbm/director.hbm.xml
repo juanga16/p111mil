@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="p111mil.peliculas.modelo.Director" table="director">
+        <id name="id" type="integer">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" />
+        </property>
+        <property name="genero" type="string">
+            <column name="genero" />
+        </property>
+        <property name="fechaNacimiento" type="java.util.Date">
+            <column name="fecha_nacimiento" />
+        </property>
+        <many-to-one name="pais" class="p111mil.peliculas.modelo.Pais" column="id_pais" cascade="all" not-null="true" insert="false" update="false" lazy="false" />        
+        <bag name="peliculas" cascade="all" lazy="false">
+            <key column="id_director" not-null="true" />
+            <one-to-many class="p111mil.peliculas.modelo.Pelicula" />
+        </bag>
+    </class>
+</hibernate-mapping>

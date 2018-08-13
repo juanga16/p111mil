@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="show_sql">true</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/peliculas?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">juanga</property>
+    <mapping resource="p111mil/peliculas/hbm/pais.hbm.xml"/>
+    <mapping resource="p111mil/peliculas/hbm/director.hbm.xml"/>
+    <mapping resource="p111mil/peliculas/hbm/pelicula.hbm.xml"/>
+    <mapping resource="p111mil/peliculas/hbm/actor.hbm.xml"/>
+    <mapping resource="p111mil/peliculas/hbm/genero.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="p111mil.peliculas.modelo.Pelicula" table="pelicula">
+        <id name="id" type="integer">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="titulo" type="string">
+            <column name="titulo" />
+        </property>
+        <property name="anio" type="int">
+            <column name="anio" />
+        </property>
+        <property name="puntuacion" type="float">
+            <column name="puntuacion" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="fecha_creacion" />
+        </property>
+        <many-to-one name="director" class="p111mil.peliculas.modelo.Director" column="id_director" cascade="all" not-null="true" insert="false" update="false" lazy="false" />
+        <bag name="paises" table="pelicula_pais" inverse="true" lazy="false" cascade="all" >
+            <key>
+                <column name="id_pelicula" not-null="true" />
+            </key>
+            <many-to-many entity-name="p111mil.peliculas.modelo.Pais">
+                <column name="id_pais" not-null="true" />
+            </many-to-many>
+        </bag>
+        <bag name="actores" table="pelicula_actor" inverse="true" lazy="false" cascade="all" >
+            <key>
+                <column name="id_pelicula" not-null="true" />
+            </key>
+            <many-to-many entity-name="p111mil.peliculas.modelo.Actor">
+                <column name="id_actor" not-null="true" />
+            </many-to-many>
+        </bag>
+        <bag name="generos" table="pelicula_genero" inverse="true" lazy="false" cascade="all" >
+            <key>
+                <column name="id_pelicula" not-null="true" />
+            </key>
+            <many-to-many entity-name="p111mil.peliculas.modelo.Genero">
+                <column name="id_genero" not-null="true" />
+            </many-to-many>
+        </bag>        
+    </class>
+</hibernate-mapping>

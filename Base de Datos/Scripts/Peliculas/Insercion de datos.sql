@@ -37,10 +37,10 @@ values
 insert into pelicula
 (titulo, anio, puntuacion, id_director)
 values
-('El secreto de sus ojos', 2009, 8.2, 3),
-('Relatos salvajes', 2014, 8.1, 4),
-('El hijo de la novia', 2001, 7.9, 4),
-('El mismo amor, la misma lluvia', 1999, 7.4, 4);
+('El secreto de sus ojos', 2009, 8.2, 1),
+('Relatos salvajes', 2014, 8.1, 2),
+('El hijo de la novia', 2001, 7.9, 1),
+('El mismo amor, la misma lluvia', 1999, 7.4, 2);
 
 -- inserto pelicula_genero
 insert into pelicula_genero
@@ -75,12 +75,11 @@ values
 insert into pelicula_actor
 (id_pelicula, id_actor)
 values
-(5, 6),
-(5, 7),
-(5, 8),
-(6, 6),
-(6, 9),
-(7, 6),
-(8, 10),
-(8, 6),
-(8, 8);
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 4),
+(2, 1),
+(3, 1),
+(4, 1),
+(4, 3);
