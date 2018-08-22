@@ -5,7 +5,13 @@
  */
 package p111mil.peliculas;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import org.hibernate.Session;
 import p111mil.peliculas.dao.ConfiguracionHibernate;
 import p111mil.peliculas.dao.*;
 import p111mil.peliculas.modelo.*;
@@ -19,18 +25,98 @@ public class P111milPeliculas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ConfiguracionHibernate.configurar();        
+        ConfiguracionHibernate.configurar();
         
-        listarPaises();     
-        imprimirPaisEstadosUnidos();
-        //guardarNuevoPais();
-        listarDirectores();
-        listarPeliculas();
+        PaisDao paisDao = new PaisDao();
+        PeliculaDao peliculaDao = new PeliculaDao();
+        
+        /*
+        List<Pais> paises = paisDao.buscarTodos();
+        
+        for(Pais pais : paises) {        
+            System.out.println(pais.getNombre());
+        }
+                
+        Pais pais = paisDao.buscarPorId(2);
+        
+        if (pais != null) {
+            System.out.println(pais.getNombre());
+        }
+        
+        Pais nuevoPais = new Pais();
+        nuevoPais.setNombre("Rusia");
+        paisDao.guardar(nuevoPais);
+        
+        Pais actualizarPais = new Pais();
+        actualizarPais.setId(1);
+        actualizarPais.setNombre("Argentina");
+        paisDao.guardar(actualizarPais);
+        */
+        
+        /*        
+        paisDao.eliminar(4);
+        */
+        
+        /*
+        PeliculaDao peliculaDao = new PeliculaDao();
+        
+        Pelicula metegol = new Pelicula();
+        
+        Director campanella = new Director();
+        campanella.setId(1);
+        
+        Genero comedia = new Genero();
+        comedia.setId(4);
+        
+        Pais argentina = new Pais();
+        argentina.setId(1);
+        
+        Actor darin = new Actor();
+        darin.setId(1);
+        
+        Actor francella = new Actor();
+        francella.setId(2);
+        
+        metegol.setTitulo("Metegol");
+        metegol.setPuntuacion(6.6f);
+        metegol.setAnio(2013);
+        metegol.setFechaCreacion(new Date());
+        metegol.setDirector(campanella);
+        metegol.setGeneros(Arrays.asList(comedia));
+        metegol.setPaises(Arrays.asList(argentina));
+        metegol.setActores(Arrays.asList(darin, francella));
+        
+        peliculaDao.guardar(metegol);
+        */
+                
+        peliculaDao.eliminar(5);
         
         ConfiguracionHibernate.cerrar();
     }
     
     private static void listarPaises() {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+        
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Pais> query = builder.createQuery(Pais.class);
+        Root<Pais> root = query.from(Pais.class);
+        query.select(root);
+        // Ordeno por nombre
+        query.orderBy(builder.asc(root.get("nombre")));
+        // Filtro los que comienzan con I
+        query.where(builder.like(root.get("nombre"), "I%"));
+        List<Pais> paises = (List<Pais>) session.createQuery(query).list();
+        
+        for(Pais pais : paises) {
+            System.out.println(pais.getId());
+            System.out.println(pais.getNombre());
+            System.out.println(pais.getFechaCreacion());
+        }
+        
+        session.close();
+    }
+    
+    private static void listarPaises2() {
         PaisDao paisDao = new PaisDao();
         
         List<Pais> paises = paisDao.buscarTodos();
@@ -43,20 +129,6 @@ public class P111milPeliculas {
             System.out.println(pais.getFechaCreacion());
         }
     }    
-    
-    private static void imprimirPaisEstadosUnidos() {
-        PaisDao paisDao = new PaisDao();
-        
-        Pais estadosUnidos = paisDao.buscarPorNombre("Estados Unidos");
-        
-        System.out.println("Pais encontrado");
-        if (estadosUnidos != null) {            
-            System.out.println(estadosUnidos.getId());
-            System.out.println(estadosUnidos.getNombre());
-            System.out.println(estadosUnidos.getDirectores().size());
-            System.out.println(estadosUnidos.getFechaCreacion());
-        }
-    }
     
     private static void guardarNuevoPais() {
         PaisDao paisDao = new PaisDao();

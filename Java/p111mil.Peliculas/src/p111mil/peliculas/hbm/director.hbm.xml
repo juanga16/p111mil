@@ -19,7 +19,7 @@
             <column name="fecha_nacimiento" />
         </property>
         <many-to-one name="pais" class="p111mil.peliculas.modelo.Pais" column="id_pais" cascade="all" not-null="true" insert="false" update="false" lazy="false" />        
-        <bag name="peliculas" cascade="all" lazy="false">
+        <bag name="peliculas" cascade="all" lazy="false" inverse="true">
             <key column="id_director" not-null="true" />
             <one-to-many class="p111mil.peliculas.modelo.Pelicula" />
         </bag>

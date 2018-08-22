@@ -8,6 +8,13 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/peliculas?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">juanga</property>
+    
+    <property name="hibernate.c3p0.min_size">5</property>
+    <property name="hibernate.c3p0.max_size">20</property>
+    <property name="hibernate.c3p0.timeout">300</property>
+    <property name="hibernate.c3p0.max_statements">50</property>
+    <property name="hibernate.c3p0.idle_test_period">3000</property>
+      
     <mapping resource="p111mil/peliculas/hbm/pais.hbm.xml"/>
     <mapping resource="p111mil/peliculas/hbm/director.hbm.xml"/>
     <mapping resource="p111mil/peliculas/hbm/pelicula.hbm.xml"/>

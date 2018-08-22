@@ -18,10 +18,10 @@ import p111mil.peliculas.modelo.Pais;
  *
  * @author Invitado
  */
-public class DirectorDao extends BaseDao {
+public class DirectorDao {
     
     public List<Director> buscarTodos() {
-        Session session = getSessionFactory().openSession();        
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
         
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Director> query = builder.createQuery(Director.class);

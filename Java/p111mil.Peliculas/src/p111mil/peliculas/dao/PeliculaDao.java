@@ -17,14 +17,10 @@ import p111mil.peliculas.modelo.Pelicula;
  *
  * @author admin
  */
-public class PeliculaDao extends BaseDao {
-    
-    public PeliculaDao() {
-        super();
-    }
+public class PeliculaDao {
     
     public List<Pelicula> buscarTodas() {
-        Session session = getSessionFactory().openSession();        
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
         
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Pelicula> query = builder.createQuery(Pelicula.class);
@@ -36,4 +32,26 @@ public class PeliculaDao extends BaseDao {
         
         return peliculas;
     }    
+    
+    
+    public void guardar(Pelicula pelicula) {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+        
+        session.beginTransaction();               
+        session.saveOrUpdate(pelicula);        
+        session.getTransaction().commit();
+
+        session.close();
+    }    
+    
+    public void eliminar(int id) {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+        
+        session.beginTransaction();        
+        Pelicula pelicula = session.get(Pelicula.class, id);
+        session.delete(pelicula);
+        session.getTransaction().commit();
+
+        session.close();
+    }
 }

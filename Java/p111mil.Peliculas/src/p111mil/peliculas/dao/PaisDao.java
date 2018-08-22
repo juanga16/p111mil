@@ -17,29 +17,10 @@ import p111mil.peliculas.modelo.Pais;
  *
  * @author admin
  */
-public class PaisDao extends BaseDao {
-    
-    public PaisDao() {
-        super();
-    }
-    
-    public Pais buscarPorNombre(String nombre) {
-        Session session = getSessionFactory().openSession();        
-        
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Pais> query = builder.createQuery(Pais.class);
-        Root<Pais> root = query.from(Pais.class);
-        query.select(root);
-        query.where(builder.equal(root.get("nombre"), nombre));
-        Pais pais = (Pais) session.createQuery(query).uniqueResult();
-        
-        session.close();
-        
-        return pais;
-    }
+public class PaisDao {        
     
     public List<Pais> buscarTodos() {
-        Session session = getSessionFactory().openSession();        
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
         
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Pais> query = builder.createQuery(Pais.class);
@@ -52,13 +33,39 @@ public class PaisDao extends BaseDao {
         return paises;
     }
     
-    public void guardar(Pais nuevoPais) {
-        Session session = getSessionFactory().openSession();
+    public Pais buscarPorId(int id) {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+        
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Pais> query = builder.createQuery(Pais.class);
+        Root<Pais> root = query.from(Pais.class);
+        query.select(root);
+        query.where(builder.equal(root.get("id"), id));
+        Pais pais = (Pais) session.createQuery(query).uniqueResult();
+        
+        session.close();
+        
+        return pais;
+    }
+    
+    public void guardar(Pais pais) {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
         
         session.beginTransaction();        
-        session.save(nuevoPais);        
+        session.saveOrUpdate(pais);        
         session.getTransaction().commit();
+
+        session.close();
+    }
+    
+    public void eliminar(int id) {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
         
+        session.beginTransaction();        
+        Pais pais = session.get(Pais.class, id);
+        session.delete(pais);
+        session.getTransaction().commit();
+
         session.close();
     }
 }

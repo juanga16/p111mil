@@ -18,7 +18,7 @@ public class Pais {
     private Date fechaCreacion;
     private List<Director> directores;
     private List<Actor> actores;
-    private List<PeliculaPais> peliculasPais;
+    private List<Pelicula> peliculas;
     
     public Pais() {
         
@@ -64,11 +64,11 @@ public class Pais {
         this.actores = actores;
     }
 
-    public List<PeliculaPais> getPeliculasPais() {
-        return peliculasPais;
+    public List<Pelicula> getPeliculas() {
+        return peliculas;
     }
 
-    public void setPeliculasPais(List<PeliculaPais> peliculasPais) {
-        this.peliculasPais = peliculasPais;
+    public void setPeliculas(List<Pelicula> peliculas) {
+        this.peliculas = peliculas;
     }        
 }

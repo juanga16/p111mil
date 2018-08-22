@@ -16,5 +16,17 @@
             <key column="id_pais" not-null="true" />
             <one-to-many class="p111mil.peliculas.modelo.Director" />
         </bag>
+        <bag name="actores" cascade="all" lazy="false">
+            <key column="id_pais" not-null="true" />
+            <one-to-many class="p111mil.peliculas.modelo.Actor" />
+        </bag>
+        <bag name="peliculas" table="pelicula_pais" inverse="true" lazy="false" cascade="all" >
+            <key>
+                <column name="id_pais" not-null="true" />
+            </key>
+            <many-to-many entity-name="p111mil.peliculas.modelo.Pelicula">
+                <column name="id_pelicula" not-null="true" />
+            </many-to-many>
+        </bag>
     </class>
 </hibernate-mapping>
