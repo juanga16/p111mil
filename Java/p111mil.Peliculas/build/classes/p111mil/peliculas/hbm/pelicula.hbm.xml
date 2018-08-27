@@ -4,7 +4,7 @@
     <class name="p111mil.peliculas.modelo.Pelicula" table="pelicula">
         <id name="id" type="integer">
             <column name="id" />
-            <generator class="native" />
+            <generator class="identity" />
         </id>
         <property name="titulo" type="string">
             <column name="titulo" />
@@ -19,7 +19,7 @@
             <column name="fecha_creacion" />
         </property>
         <many-to-one name="director" class="p111mil.peliculas.modelo.Director" column="id_director" cascade="none" not-null="true" insert="true" update="false" lazy="false" />
-        <bag name="paises" table="pelicula_pais" inverse="false" lazy="false" cascade="delete-orphan" >
+        <bag name="paises" table="pelicula_pais" inverse="false" lazy="false" cascade="none" >
             <key>
                 <column name="id_pelicula" not-null="true" />
             </key>
@@ -27,7 +27,7 @@
                 <column name="id_pais" not-null="true" />
             </many-to-many>
         </bag>
-        <bag name="actores" table="pelicula_actor" inverse="false" lazy="false" cascade="delete-orphan" >
+        <bag name="actores" table="pelicula_actor" inverse="false" lazy="false" cascade="none" >
             <key>
                 <column name="id_pelicula" not-null="true" />
             </key>
@@ -35,7 +35,7 @@
                 <column name="id_actor" not-null="true" />
             </many-to-many>
         </bag>
-        <bag name="generos" table="pelicula_genero" inverse="false" lazy="false" cascade="delete-orphan" >
+        <bag name="generos" table="pelicula_genero" inverse="false" lazy="false" cascade="none" >
             <key>
                 <column name="id_pelicula" not-null="true" />
             </key>

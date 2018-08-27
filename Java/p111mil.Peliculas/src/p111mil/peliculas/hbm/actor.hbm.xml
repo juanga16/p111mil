@@ -4,7 +4,7 @@
     <class name="p111mil.peliculas.modelo.Actor" table="actor">
         <id name="id" type="integer">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="nombre" type="string">
             <column name="nombre" />
@@ -18,8 +18,8 @@
         <property name="fechaNacimiento" type="java.util.Date">
             <column name="fecha_nacimiento" />
         </property>
-        <many-to-one name="pais" class="p111mil.peliculas.modelo.Pais" column="id_pais" cascade="all" not-null="true" insert="false" update="false" lazy="false" />
-        <bag name="peliculas" table="pelicula_actor" inverse="true" lazy="false" cascade="all" >
+        <many-to-one name="pais" class="p111mil.peliculas.modelo.Pais" column="id_pais" cascade="none" not-null="true" insert="true" update="false" lazy="false" />
+        <bag name="peliculas" table="pelicula_actor" inverse="false" lazy="false" cascade="none" >
             <key>
                 <column name="id_actor" not-null="true" />
             </key>

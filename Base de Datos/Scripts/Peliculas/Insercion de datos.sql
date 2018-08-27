@@ -40,7 +40,7 @@ values
 ('El secreto de sus ojos', 2009, 8.2, 1),
 ('Relatos salvajes', 2014, 8.1, 2),
 ('El hijo de la novia', 2001, 7.9, 1),
-('El mismo amor, la misma lluvia', 1999, 7.4, 2);
+('El mismo amor, la misma lluvia', 1999, 7.4, 1);
 
 -- inserto pelicula_genero
 insert into pelicula_genero

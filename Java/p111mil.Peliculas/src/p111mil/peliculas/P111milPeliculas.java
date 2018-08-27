@@ -5,13 +5,9 @@
  */
 package p111mil.peliculas;
 
-import java.util.Arrays;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import org.hibernate.Session;
 import p111mil.peliculas.dao.ConfiguracionHibernate;
 import p111mil.peliculas.dao.*;
 import p111mil.peliculas.modelo.*;
@@ -27,132 +23,77 @@ public class P111milPeliculas {
     public static void main(String[] args) {
         ConfiguracionHibernate.configurar();
         
-        PaisDao paisDao = new PaisDao();
-        PeliculaDao peliculaDao = new PeliculaDao();
-        
-        /*
-        List<Pais> paises = paisDao.buscarTodos();
-        
-        for(Pais pais : paises) {        
-            System.out.println(pais.getNombre());
-        }
+        crearEliminarUnaPelicula();
+        listarPaises();
+        listarPeliculas();
                 
-        Pais pais = paisDao.buscarPorId(2);
-        
-        if (pais != null) {
-            System.out.println(pais.getNombre());
-        }
-        
-        Pais nuevoPais = new Pais();
-        nuevoPais.setNombre("Rusia");
-        paisDao.guardar(nuevoPais);
-        
-        Pais actualizarPais = new Pais();
-        actualizarPais.setId(1);
-        actualizarPais.setNombre("Argentina");
-        paisDao.guardar(actualizarPais);
-        */
-        
-        /*        
-        paisDao.eliminar(4);
-        */
-        
-        /*
-        PeliculaDao peliculaDao = new PeliculaDao();
-        
-        Pelicula metegol = new Pelicula();
-        
-        Director campanella = new Director();
-        campanella.setId(1);
-        
-        Genero comedia = new Genero();
-        comedia.setId(4);
-        
-        Pais argentina = new Pais();
-        argentina.setId(1);
-        
-        Actor darin = new Actor();
-        darin.setId(1);
-        
-        Actor francella = new Actor();
-        francella.setId(2);
-        
-        metegol.setTitulo("Metegol");
-        metegol.setPuntuacion(6.6f);
-        metegol.setAnio(2013);
-        metegol.setFechaCreacion(new Date());
-        metegol.setDirector(campanella);
-        metegol.setGeneros(Arrays.asList(comedia));
-        metegol.setPaises(Arrays.asList(argentina));
-        metegol.setActores(Arrays.asList(darin, francella));
-        
-        peliculaDao.guardar(metegol);
-        */
-                
-        peliculaDao.eliminar(5);
-        
         ConfiguracionHibernate.cerrar();
     }
     
-    private static void listarPaises() {
-        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+    private static void crearEliminarUnaPelicula() {
+        PaisDao paisDao = new PaisDao();
+        PeliculaDao peliculaDao = new PeliculaDao();
+        DirectorDao directorDao = new DirectorDao();
+        ActorDao actorDao = new ActorDao();
         
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Pais> query = builder.createQuery(Pais.class);
-        Root<Pais> root = query.from(Pais.class);
-        query.select(root);
-        // Ordeno por nombre
-        query.orderBy(builder.asc(root.get("nombre")));
-        // Filtro los que comienzan con I
-        query.where(builder.like(root.get("nombre"), "I%"));
-        List<Pais> paises = (List<Pais>) session.createQuery(query).list();
+        Pais nuevoPais = new Pais();
+        nuevoPais.setNombre("Italia");         
+        paisDao.guardar(nuevoPais);
         
-        for(Pais pais : paises) {
-            System.out.println(pais.getId());
-            System.out.println(pais.getNombre());
-            System.out.println(pais.getFechaCreacion());
-        }
+        Director nuevoDirector = new Director();
+        nuevoDirector.setNombre("Roberto");
+        nuevoDirector.setApellido("Benigni");
+        nuevoDirector.setGenero("M");
+        nuevoDirector.setFechaNacimiento(new GregorianCalendar(1952, Calendar.OCTOBER, 27).getTime());
+        nuevoDirector.setPais(nuevoPais);
+        directorDao.guardar(nuevoDirector);
         
-        session.close();
+        Actor nuevoActor1 = new Actor();
+        nuevoActor1.setNombre("Roberto");
+        nuevoActor1.setApellido("Benigni");
+        nuevoActor1.setGenero("M");
+        nuevoActor1.setFechaNacimiento(new GregorianCalendar(1952, Calendar.OCTOBER, 27).getTime());
+        nuevoActor1.setPais(nuevoPais);
+        actorDao.guardar(nuevoActor1);
+        
+        Actor nuevoActor2 = new Actor();
+        nuevoActor2.setNombre("Nicoletta");
+        nuevoActor2.setApellido("Braschi");
+        nuevoActor2.setGenero("F");
+        nuevoActor2.setFechaNacimiento(new GregorianCalendar(1960, Calendar.APRIL, 19).getTime());
+        nuevoActor2.setPais(nuevoPais);
+        actorDao.guardar(nuevoActor2);        
+        
+        Pelicula nuevaPelicula = new Pelicula();
+        nuevaPelicula.setTitulo("La vita e bella");
+        nuevaPelicula.setAnio(1997);
+        nuevaPelicula.setPuntuacion(8.6f);
+        nuevaPelicula.setDirector(nuevoDirector);
+        nuevaPelicula.getActores().add(nuevoActor1);
+        nuevaPelicula.getActores().add(nuevoActor2);
+        
+         // Actuar
+         peliculaDao.guardar(nuevaPelicula);
+        
+        // Eliminar
+        actorDao.eliminar(nuevoActor1.getId());
+        actorDao.eliminar(nuevoActor2.getId());
+        peliculaDao.eliminar(nuevaPelicula.getId());
+        directorDao.eliminar(nuevoDirector.getId());
+        paisDao.eliminar(nuevoPais.getId());        
     }
     
-    private static void listarPaises2() {
+    private static void listarPaises() {
         PaisDao paisDao = new PaisDao();
         
         List<Pais> paises = paisDao.buscarTodos();
         
-        System.out.println("Cantidad de paises: " + paises.size());
         for(Pais pais : paises) {
             System.out.println(pais.getId());
             System.out.println(pais.getNombre());
-            System.out.println(pais.getDirectores().size());
             System.out.println(pais.getFechaCreacion());
         }
     }    
-    
-    private static void guardarNuevoPais() {
-        PaisDao paisDao = new PaisDao();
-        
-        Pais nuevoPais = new Pais();
-        nuevoPais.setNombre("Canada");
-        
-        paisDao.guardar(nuevoPais);
-    }    
-    
-    private static void listarDirectores() {
-        DirectorDao directorDao = new DirectorDao();
-        
-        List<Director> directores = directorDao.buscarTodos();        
-        
-        System.out.println("Cantidad de directores: " + directores.size());
-        for(Director director : directores) {
-            System.out.println(director.getNombre());
-            System.out.println(director.getApellido());
-            System.out.println(director.getFechaNacimiento());
-            System.out.println(director.getPais().getNombre());
-            System.out.println(director.getPeliculas().size());
-        }                
-    }
     
     private static void listarPeliculas() {
         PeliculaDao peliculaDao = new PeliculaDao();

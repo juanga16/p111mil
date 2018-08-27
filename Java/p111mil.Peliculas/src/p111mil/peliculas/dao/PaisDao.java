@@ -47,14 +47,14 @@ public class PaisDao {
         
         return pais;
     }
-    
+       
     public void guardar(Pais pais) {
         Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
         
         session.beginTransaction();        
-        session.saveOrUpdate(pais);        
+        session.saveOrUpdate(pais);
         session.getTransaction().commit();
-
+        
         session.close();
     }
     

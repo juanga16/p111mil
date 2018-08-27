@@ -12,7 +12,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import p111mil.peliculas.modelo.Director;
-import p111mil.peliculas.modelo.Pais;
 
 /**
  *
@@ -32,5 +31,29 @@ public class DirectorDao {
         session.close();
         
         return directores;
+    }
+            
+    public void guardar(Director director) {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+        
+        session.beginTransaction();        
+        session.saveOrUpdate(director);        
+        session.getTransaction().commit();
+
+        session.close();
+    }
+    
+    public void eliminar(int id) {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+        Director director = session.get(Director.class, id);
+        
+        if (director != null)
+        {
+            session.beginTransaction();                     
+            session.delete(director);
+            session.getTransaction().commit();            
+        }
+        
+        session.close();
     }
 }

@@ -84,5 +84,16 @@ public class Actor {
     @Override
     public String toString() {
         return this.nombre + " " + this.apellido;
-    }    
+    }
+    
+    @Override
+    public final boolean equals(Object object) {
+        if ((object == null) || !(object instanceof Actor)) {
+            return false;
+        }
+        
+        Actor otroActor = (Actor) object;
+        
+        return this.getId() == otroActor.getId();
+    }
 }

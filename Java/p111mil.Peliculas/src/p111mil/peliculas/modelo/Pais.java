@@ -5,6 +5,7 @@
  */
 package p111mil.peliculas.modelo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,9 @@ public class Pais {
     private List<Pelicula> peliculas;
     
     public Pais() {
-        
+        directores = new ArrayList<Director>();
+        actores = new ArrayList<Actor>();
+        peliculas = new ArrayList<Pelicula>();
     }
 
     public int getId() {

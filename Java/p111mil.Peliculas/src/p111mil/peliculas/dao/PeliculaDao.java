@@ -33,6 +33,35 @@ public class PeliculaDao {
         return peliculas;
     }    
     
+    public Pelicula buscarPorId(int id) {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+        
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Pelicula> query = builder.createQuery(Pelicula.class);
+        Root<Pelicula> root = query.from(Pelicula.class);
+        query.select(root);
+        query.where(builder.equal(root.get("id"), id));
+        Pelicula pais = (Pelicula) session.createQuery(query).uniqueResult();
+        
+        session.close();
+        
+        return pais;
+    }
+    
+    public Pelicula buscarPorTitulo(String titulo) {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+        
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Pelicula> query = builder.createQuery(Pelicula.class);
+        Root<Pelicula> root = query.from(Pelicula.class);
+        query.select(root);
+        query.where(builder.equal(root.get("titulo"), titulo));
+        Pelicula pelicula = (Pelicula) session.createQuery(query).uniqueResult();
+        
+        session.close();
+        
+        return pelicula;
+    }
     
     public void guardar(Pelicula pelicula) {
         Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
@@ -46,12 +75,15 @@ public class PeliculaDao {
     
     public void eliminar(int id) {
         Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
-        
-        session.beginTransaction();        
         Pelicula pelicula = session.get(Pelicula.class, id);
-        session.delete(pelicula);
-        session.getTransaction().commit();
-
+        
+        if (pelicula != null)
+        {
+            session.beginTransaction();                     
+            session.delete(pelicula);
+            session.getTransaction().commit();            
+        }
+        
         session.close();
     }
 }
