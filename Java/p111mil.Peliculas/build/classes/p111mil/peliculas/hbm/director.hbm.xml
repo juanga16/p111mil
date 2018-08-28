@@ -18,7 +18,12 @@
         <property name="fechaNacimiento" type="java.util.Date">
             <column name="fecha_nacimiento" />
         </property>
-        <many-to-one name="pais" class="p111mil.peliculas.modelo.Pais" column="id_pais" cascade="none" not-null="true" insert="true" update="false" lazy="false" unique="true" />
+        <!-- Configuro la relacion con la tabla Pais
+            - name: es el nombre de la propiedad Pais
+            - insert: true, para que cuando inserta un Director se encargue tambien de setearle valor a la propiedad id_pais 
+            - unique: true, significa que hay una clave foranea 
+            - update: PROBAR -->
+        <many-to-one name="pais" class="p111mil.peliculas.modelo.Pais" column="id_pais" cascade="none" not-null="true" insert="false" update="false" lazy="false" unique="true" />
         <bag name="peliculas" cascade="none" lazy="false" inverse="true">
             <key column="id_director" not-null="true" />
             <one-to-many class="p111mil.peliculas.modelo.Pelicula" />

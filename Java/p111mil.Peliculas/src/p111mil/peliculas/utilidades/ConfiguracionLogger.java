@@ -18,9 +18,10 @@ public class ConfiguracionLogger {
     
     public static void configurar() {    
         try {
+            // Estoy diciendo que voy a loguear en un archivo de texto y con el parametro true significa que se agrega la informacion al final
             FileHandler fileHandler = new FileHandler("Peliculas.log", true);
             fileHandler.setFormatter(new SimpleFormatter());
-        LOGGER.addHandler(fileHandler);
+            LOGGER.addHandler(fileHandler);
         } catch(Exception exception) {
             System.out.println(exception.getStackTrace());
         }

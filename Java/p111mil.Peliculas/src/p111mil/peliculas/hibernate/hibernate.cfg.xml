@@ -2,19 +2,18 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
+    <!-- Dado que la base de datos es MySQL le decimos que use el dialecto MySQL -->
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <!-- Esto significa que va a imprimir las consultas en la consola -->
     <property name="show_sql">true</property>
+    <!-- El conector que se va a usar para la base de datos -->
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <!-- Cadena de conexion. Localhost:3306 puede ser una IP:Puerto -->
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/peliculas?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
     <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">juanga</property>
+    <property name="hibernate.connection.password">p111mil</property>
     
-    <property name="hibernate.c3p0.min_size">5</property>
-    <property name="hibernate.c3p0.max_size">20</property>
-    <property name="hibernate.c3p0.timeout">300</property>
-    <property name="hibernate.c3p0.max_statements">50</property>
-    <property name="hibernate.c3p0.idle_test_period">3000</property>
-      
+    <!-- Agrego la refencia a los mapeos de cada clase -->
     <mapping resource="p111mil/peliculas/hbm/pais.hbm.xml"/>
     <mapping resource="p111mil/peliculas/hbm/director.hbm.xml"/>
     <mapping resource="p111mil/peliculas/hbm/pelicula.hbm.xml"/>

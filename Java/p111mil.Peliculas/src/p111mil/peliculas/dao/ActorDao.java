@@ -5,13 +5,8 @@
  */
 package p111mil.peliculas.dao;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;

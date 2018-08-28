@@ -9,7 +9,7 @@
         <property name="titulo" type="string">
             <column name="titulo" />
         </property>
-        <property name="anio" type="int">
+        <property name="anio" type="integer">
             <column name="anio" />
         </property>
         <property name="puntuacion" type="float">
@@ -27,7 +27,7 @@
                 <column name="id_pais" not-null="true" />
             </many-to-many>
         </bag>
-        <bag name="actores" table="pelicula_actor" inverse="false" lazy="false" cascade="none" >
+        <bag name="actores" table="pelicula_actor" inverse="false" lazy="false" cascade="none">
             <key>
                 <column name="id_pelicula" not-null="true" />
             </key>

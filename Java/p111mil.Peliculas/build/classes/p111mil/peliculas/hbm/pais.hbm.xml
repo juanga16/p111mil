@@ -2,6 +2,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="p111mil.peliculas.modelo.Pais" table="pais">
+        <!-- Configuramos el ID de la tabla
+             Como es autonumerico en generator va el valor identity -->
         <id name="id" type="integer">
             <column name="id" />
             <generator class="identity" />
@@ -9,21 +11,39 @@
         <property name="nombre" type="string">
             <column name="nombre" />
         </property>
+        <!-- Como la columna en la tabla se llama diferente a la propiedad
+             tenemos que usar la configuracion de column -->
         <property name="fechaCreacion" type="java.util.Date">
             <column name="fecha_creacion" />
         </property>
-        <bag name="directores" cascade="none" lazy="false" inverse="true">
+        <!-- La relacion entre Pais y Director es 1 a muchos
+             - cascade none significa que cuando elimino un pais no voy a eliminar a los directores de ese pais
+             - lazy significa que cada vez que hibernate popule un pais, va a llenar la lista de directores
+             - inverse false. Significa "quién manda". Cuando se mapea una relación bidireccional es necesario notificar a hibernate de que ambos atributos corresponden semánticamente a dos extremos de la misma relación.
+        -->
+        <bag name="directores" cascade="none" lazy="false" inverse="false">
+            <!-- La propiedad en la tabla hija en este caso Director -->
             <key column="id_pais" not-null="true" />
+            <!-- El nombre de la entidad con la que se relaciona 
+                 Al hacer referencia a otra clase nos estamos obligando a tambien agregar el archivo de mapeo hbm de esa clase -->
             <one-to-many class="p111mil.peliculas.modelo.Director" />
         </bag>
-        <bag name="actores" cascade="none" lazy="false" inverse="true">
+        <bag name="actores" cascade="none" lazy="false" inverse="false">
             <key column="id_pais" not-null="true" />
             <one-to-many class="p111mil.peliculas.modelo.Actor" />
         </bag>
+        <!-- Este es el caso de relaciones M a M, muchos a muchos 
+             Aca tenemos una tabla intermedia pelicula_pais, que no existe como entidad en mi modelo, ni se mapeo.
+             Pero si existe en la base de datos. 
+             - name: lista de Pelicula en Pais
+             - table: nombre de la tabla M a M
+        -->
         <bag name="peliculas" table="pelicula_pais" inverse="false" lazy="false" cascade="none" >
+            <!-- Configuro la clave desde el punto de vista de Pais en la tabla pelicula_pais -->
             <key>
                 <column name="id_pais" not-null="true" />
             </key>
+            <!-- Configuro la relacion M a M desde el punto de vista de Pelicula -->
             <many-to-many entity-name="p111mil.peliculas.modelo.Pelicula">
                 <column name="id_pelicula" not-null="true" />
             </many-to-many>

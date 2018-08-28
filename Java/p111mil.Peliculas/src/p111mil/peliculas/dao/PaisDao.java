@@ -7,6 +7,8 @@ package p111mil.peliculas.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -18,17 +20,34 @@ import p111mil.peliculas.modelo.Pais;
  * @author admin
  */
 public class PaisDao {        
+    private final static Logger LOGGER = Logger.getLogger("Peliculas");
     
     public List<Pais> buscarTodos() {
+        LOGGER.log(Level.INFO, "Comienzo ejecucion buscarTodos");
+        
+        // Obtengo una nueva session y la abro
         Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+        ArrayList<Pais> paises = new ArrayList<Pais>();
         
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Pais> query = builder.createQuery(Pais.class);
-        Root<Pais> root = query.from(Pais.class);
-        query.select(root);
-        ArrayList<Pais> paises = (ArrayList<Pais>) session.createQuery(query).list();
+        try {        
+            // Hago una consulta para obtener todos los paises de la tabla pais
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Pais> query = builder.createQuery(Pais.class);
+            Root<Pais> root = query.from(Pais.class);
+            query.select(root);
+            query.orderBy(builder.asc(root.get("color_bandera")));
+            // Ejecuto la consulta y guardo el resultado en una lista de Pais
+            paises = (ArrayList<Pais>) session.createQuery(query).list();
+        }
+        catch(Exception excepcion) {
+            LOGGER.log(Level.SEVERE, excepcion.getMessage());
+        }
+        finally {
+            // Antes de salir, debo cerrar la session
+            session.close();
+        }
         
-        session.close();
+        LOGGER.log(Level.INFO, "Termino la ejecucion buscarTodos: {0} resultados", paises.size());
         
         return paises;
     }

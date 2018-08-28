@@ -6,7 +6,6 @@
 package p111mil.peliculas.dao;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -26,11 +25,8 @@ public class ConfiguracionHibernate {
     public static void configurar() {
         Configuration config = new Configuration();        
         
-        //serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();                
-        
-        serviceRegistry = new StandardServiceRegistryBuilder()
-			.configure("p111mil/peliculas/hibernate/hibernate.cfg.xml") // configures settings from hibernate.cfg.xml
-			.build();
+        // Es importante revisar y configurar la correcta ubicacion del archivo hibernate.cfg.xml
+        serviceRegistry = new StandardServiceRegistryBuilder().configure("p111mil/peliculas/hibernate/hibernate.cfg.xml").build();
         
         sessionFactory = config.buildSessionFactory(serviceRegistry);
     }

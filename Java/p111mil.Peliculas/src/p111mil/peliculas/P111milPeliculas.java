@@ -11,6 +11,7 @@ import java.util.List;
 import p111mil.peliculas.dao.ConfiguracionHibernate;
 import p111mil.peliculas.dao.*;
 import p111mil.peliculas.modelo.*;
+import p111mil.peliculas.utilidades.ConfiguracionLogger;
 
 /**
  *
@@ -21,12 +22,17 @@ public class P111milPeliculas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        // Invoco el metodo configurar una sola vez al comienzo de la ejecucion del programa        
+        // Se van a leer los parametros de configuracion de hibernate
         ConfiguracionHibernate.configurar();
+        ConfiguracionLogger.configurar();
         
-        crearEliminarUnaPelicula();
+        //crearEliminarUnaPelicula();
         listarPaises();
-        listarPeliculas();
-                
+        //listarPeliculas();
+
+        // Invoco el cerrar justo antes de salir del programa
+        // para liberar los recursos de la conexion con la base de datos
         ConfiguracionHibernate.cerrar();
     }
     
@@ -87,7 +93,7 @@ public class P111milPeliculas {
         PaisDao paisDao = new PaisDao();
         
         List<Pais> paises = paisDao.buscarTodos();
-        
+
         for(Pais pais : paises) {
             System.out.println(pais.getId());
             System.out.println(pais.getNombre());
