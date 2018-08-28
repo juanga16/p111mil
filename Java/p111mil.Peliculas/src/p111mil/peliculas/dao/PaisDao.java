@@ -35,7 +35,7 @@ public class PaisDao {
             CriteriaQuery<Pais> query = builder.createQuery(Pais.class);
             Root<Pais> root = query.from(Pais.class);
             query.select(root);
-            query.orderBy(builder.asc(root.get("color_bandera")));
+            query.orderBy(builder.asc(root.get("nombre")));
             // Ejecuto la consulta y guardo el resultado en una lista de Pais
             paises = (ArrayList<Pais>) session.createQuery(query).list();
         }

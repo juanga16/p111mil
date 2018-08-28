@@ -19,16 +19,16 @@
         <!-- La relacion entre Pais y Director es 1 a muchos
              - cascade none significa que cuando elimino un pais no voy a eliminar a los directores de ese pais
              - lazy significa que cada vez que hibernate popule un pais, va a llenar la lista de directores
-             - inverse false. Significa "quién manda". Cuando se mapea una relación bidireccional es necesario notificar a hibernate de que ambos atributos corresponden semánticamente a dos extremos de la misma relación.
+             - inverse true. Significa que la relacion la maneja la entidad Director
         -->
-        <bag name="directores" cascade="none" lazy="false" inverse="false">
+        <bag name="directores" cascade="none" lazy="false" inverse="true">
             <!-- La propiedad en la tabla hija en este caso Director -->
             <key column="id_pais" not-null="true" />
             <!-- El nombre de la entidad con la que se relaciona 
                  Al hacer referencia a otra clase nos estamos obligando a tambien agregar el archivo de mapeo hbm de esa clase -->
             <one-to-many class="p111mil.peliculas.modelo.Director" />
         </bag>
-        <bag name="actores" cascade="none" lazy="false" inverse="false">
+        <bag name="actores" cascade="none" lazy="false" inverse="true">
             <key column="id_pais" not-null="true" />
             <one-to-many class="p111mil.peliculas.modelo.Actor" />
         </bag>

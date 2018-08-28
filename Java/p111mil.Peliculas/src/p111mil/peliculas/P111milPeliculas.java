@@ -27,9 +27,9 @@ public class P111milPeliculas {
         ConfiguracionHibernate.configurar();
         ConfiguracionLogger.configurar();
         
-        //crearEliminarUnaPelicula();
+        crearEliminarUnaPelicula();
         listarPaises();
-        //listarPeliculas();
+        listarPeliculas();
 
         // Invoco el cerrar justo antes de salir del programa
         // para liberar los recursos de la conexion con la base de datos
