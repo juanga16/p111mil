@@ -8,9 +8,12 @@ package p111mil.peliculas;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
 import p111mil.peliculas.dao.ConfiguracionHibernate;
 import p111mil.peliculas.dao.*;
 import p111mil.peliculas.modelo.*;
+import p111mil.peliculas.ui.ABMPaises;
 import p111mil.peliculas.utilidades.ConfiguracionLogger;
 
 /**
@@ -27,13 +30,22 @@ public class P111milPeliculas {
         ConfiguracionHibernate.configurar();
         ConfiguracionLogger.configurar();
         
-        crearEliminarUnaPelicula();
-        listarPaises();
-        listarPeliculas();
-
-        // Invoco el cerrar justo antes de salir del programa
-        // para liberar los recursos de la conexion con la base de datos
-        ConfiguracionHibernate.cerrar();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        ABMPaises abmPaises = new ABMPaises();
+        
+        // Lo muestra centrado en la pantalla
+        abmPaises.setLocationRelativeTo(null); 
+        
+        // Deshabilito el boton para maximizar
+        abmPaises.setResizable(false);                        
+        
+        abmPaises.setVisible(true);        
     }
     
     private static void crearEliminarUnaPelicula() {
@@ -78,8 +90,7 @@ public class P111milPeliculas {
         nuevaPelicula.getActores().add(nuevoActor1);
         nuevaPelicula.getActores().add(nuevoActor2);
         
-         // Actuar
-         peliculaDao.guardar(nuevaPelicula);
+        peliculaDao.guardar(nuevaPelicula);
         
         // Eliminar
         actorDao.eliminar(nuevoActor1.getId());

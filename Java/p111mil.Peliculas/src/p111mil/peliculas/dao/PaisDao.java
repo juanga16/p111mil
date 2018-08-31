@@ -66,6 +66,21 @@ public class PaisDao {
         
         return pais;
     }
+    
+    public Pais buscarPorNombre(String nombre) {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Pais> query = builder.createQuery(Pais.class);
+        Root<Pais> root = query.from(Pais.class);
+        query.select(root);
+        query.where(builder.equal(root.get("nombre"), nombre));
+        Pais pais = (Pais) session.createQuery(query).uniqueResult();
+        
+        session.close();
+        
+        return pais;
+    }
        
     public void guardar(Pais pais) {
         Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
