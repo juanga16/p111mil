@@ -11,8 +11,7 @@
     <!-- Cadena de conexion. Localhost:3306 puede ser una IP:Puerto -->
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/peliculas?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
     <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">juanga</property>
-    
+    <property name="hibernate.connection.password">p111mil</property>
     <!-- Agrego la refencia a los mapeos de cada clase -->
     <mapping resource="p111mil/peliculas/hbm/pais.hbm.xml"/>
     <mapping resource="p111mil/peliculas/hbm/director.hbm.xml"/>

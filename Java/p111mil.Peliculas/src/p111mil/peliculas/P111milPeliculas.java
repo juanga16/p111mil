@@ -8,7 +8,6 @@ package p111mil.peliculas;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.UIManager;
 import p111mil.peliculas.dao.ConfiguracionHibernate;
 import p111mil.peliculas.dao.*;

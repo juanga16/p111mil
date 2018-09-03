@@ -52,9 +52,9 @@ public class PaisModeloTabla extends AbstractTableModel {
         return value;
     }
     
+    // Devuelve el titulo de cada columna
     @Override
     public String getColumnName(int columnIndex) {
         return COLUMNAS[columnIndex];
-    }
-    
+    }    
 }
