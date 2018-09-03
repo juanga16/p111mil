@@ -22,11 +22,13 @@ public class PaisModeloTabla extends AbstractTableModel {
         this.paises = paises;
     }
     
+    // Tiene que retornar la cantidad de filas que tendra la grilla
     @Override
     public int getRowCount() {
         return paises.size();
     }
 
+    // Tiene que retornar la cantidad de columnas
     @Override
     public int getColumnCount() {
         return COLUMNAS.length;

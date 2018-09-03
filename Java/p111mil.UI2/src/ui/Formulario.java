@@ -63,7 +63,7 @@ public class Formulario extends javax.swing.JFrame {
             defaultListModel.addElement(localidad);
         }
         
-        listLocalidades.setd(defaultListModel);
+        //listLocalidades.setd(defaultListModel);
     }
 
     /**

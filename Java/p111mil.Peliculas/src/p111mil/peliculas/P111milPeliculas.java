@@ -29,6 +29,7 @@ public class P111milPeliculas {
         ConfiguracionHibernate.configurar();
         ConfiguracionLogger.configurar();
         
+        // Para que adopte la apariencia de Windows
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }

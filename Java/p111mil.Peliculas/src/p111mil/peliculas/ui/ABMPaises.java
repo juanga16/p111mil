@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import p111mil.peliculas.dao.ConfiguracionHibernate;
 import p111mil.peliculas.dao.PaisDao;
@@ -25,19 +26,44 @@ public class ABMPaises extends javax.swing.JFrame {
      */
     public ABMPaises() {
         initComponents();
-        cargarPaises();
+        cargarTabla();               
+        
+        // Solamente se pueden seleccionar de a una fila
+        tablaPaises.setRowSelectionAllowed(true);
+        tablaPaises.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
     
-    public void cargarPaises() {
+    private void deshabilitarBotones() {
+        botonEliminar.setEnabled(false);
+        botonMostrar.setEnabled(false);
+        botonEditar.setEnabled(false);        
+    }
+    
+    private void habilitarBotones() {
+        // Si tengo una fila seleccionada, habilito los botones
+        if (tablaPaises.getSelectedRow() >= 0) {
+            botonEliminar.setEnabled(true);
+            botonMostrar.setEnabled(true);
+            botonEditar.setEnabled(true);
+        }
+    }
+    
+    private void cargarTabla() {
+        deshabilitarBotones();
+        
         PaisDao paisDao = new PaisDao();
         List<Pais> paises = paisDao.buscarTodos();
                         
+        // Para alinear los numeros a la derecha
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
 
         tablaPaises.setModel(new PaisModeloTabla(paises));
+        
+        // Establece un ancho de 20 para la columna 0
         tablaPaises.getColumnModel().getColumn(0).setPreferredWidth(20);
         tablaPaises.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);
+        // Establece un ancho de 50 para la columna 1
         tablaPaises.getColumnModel().getColumn(1).setPreferredWidth(50);
     }
 
@@ -74,6 +100,11 @@ public class ABMPaises extends javax.swing.JFrame {
         botonEliminar.setText("Eliminar");
 
         botonEditar.setText("Editar");
+        botonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEditarActionPerformed(evt);
+            }
+        });
 
         botonMostrar.setText("Mostrar");
 
@@ -88,6 +119,16 @@ public class ABMPaises extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaPaises.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaPaisesMouseClicked(evt);
+            }
+        });
+        tablaPaises.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tablaPaisesKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaPaises);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -137,7 +178,11 @@ public class ABMPaises extends javax.swing.JFrame {
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
         String nombrePais = JOptionPane.showInputDialog(this, "Ingrese el nombre del nuevo pais");
         
-        if (nombrePais == null || nombrePais.isEmpty()) {
+        if (nombrePais == null) {
+            return;
+        }
+        
+        if (nombrePais.isEmpty()) {
             JOptionPane.showMessageDialog(this, "El nombre del pais no puede estar vacio", "Alta de pais", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -146,7 +191,7 @@ public class ABMPaises extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "El pais no puede tener mas de 50 caracteres", "Alta de pais", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+       
         PaisDao paisDao = new PaisDao();
         
         if (paisDao.buscarPorNombre(nombrePais) != null) {
@@ -158,10 +203,68 @@ public class ABMPaises extends javax.swing.JFrame {
         nuevoPais.setNombre(nombrePais);
         
         paisDao.guardar(nuevoPais);
-        cargarPaises();
+        cargarTabla();
                 
-        JOptionPane.showMessageDialog(this, "El pais se ha guardado exitosamente", "Alta de pais", JOptionPane.INFORMATION_MESSAGE);            
+        JOptionPane.showMessageDialog(this, "El pais se ha creado exitosamente", "Alta de pais", JOptionPane.INFORMATION_MESSAGE);            
     }//GEN-LAST:event_botonNuevoActionPerformed
+
+    private void tablaPaisesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPaisesMouseClicked
+        habilitarBotones();
+    }//GEN-LAST:event_tablaPaisesMouseClicked
+
+    private void tablaPaisesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaPaisesKeyReleased
+        habilitarBotones();
+    }//GEN-LAST:event_tablaPaisesKeyReleased
+
+    private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
+        // Si no tengo nada seleccionado me voy
+        if (tablaPaises.getSelectedRow() < 0) {
+            return;
+        }
+        
+        int filaSeleccionada = tablaPaises.getSelectedRow();
+        
+        // Usamos el metodo getValueAt para obtener el ID (que es la columna 0)
+        int idPais = (int) tablaPaises.getValueAt(filaSeleccionada, 0);
+        
+        PaisDao paisDao = new PaisDao();        
+        Pais paisParaEditar = paisDao.buscarPorId(idPais);
+        
+        String nombreNuevoDelPais = JOptionPane.showInputDialog(this, "Ingrese el nuevo nombre del pais", paisParaEditar.getNombre());
+        
+        if (nombreNuevoDelPais == null) {
+            return;
+        }
+        
+        if (nombreNuevoDelPais.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El nombre del pais no puede estar vacio", "Edicion de pais", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (nombreNuevoDelPais.length() > 50) {
+            JOptionPane.showMessageDialog(this, "El pais no puede tener mas de 50 caracteres", "Edicion de pais", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Pais paisExistente = paisDao.buscarPorNombre(nombreNuevoDelPais);
+                
+        if (paisExistente != null) {           
+            // Si los IDs son iguales, en este caso no modifique el nombre
+            // Si los IDs son diferentes no puedo continuar porque estaria generando un duplicado
+            if (paisParaEditar.getId() != paisExistente.getId()) {
+                JOptionPane.showMessageDialog(this, "Ya existe un pais con el nombre: " + nombreNuevoDelPais, "Edicion de pais", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+        
+        // El pais cambio de nombre, debemos actualizar en la BD
+        paisParaEditar.setNombre(nombreNuevoDelPais);
+
+        paisDao.guardar(paisParaEditar);
+        cargarTabla();
+                
+        JOptionPane.showMessageDialog(this, "El pais se ha editado exitosamente", "Edicion de pais", JOptionPane.INFORMATION_MESSAGE);                    
+    }//GEN-LAST:event_botonEditarActionPerformed
 
     /**
      * @param args the command line arguments
