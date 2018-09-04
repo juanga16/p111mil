@@ -98,6 +98,11 @@ public class ABMPaises extends javax.swing.JFrame {
         });
 
         botonEliminar.setText("Eliminar");
+        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarActionPerformed(evt);
+            }
+        });
 
         botonEditar.setText("Editar");
         botonEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +112,11 @@ public class ABMPaises extends javax.swing.JFrame {
         });
 
         botonMostrar.setText("Mostrar");
+        botonMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonMostrarActionPerformed(evt);
+            }
+        });
 
         tablaPaises.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -265,6 +275,51 @@ public class ABMPaises extends javax.swing.JFrame {
                 
         JOptionPane.showMessageDialog(this, "El pais se ha editado exitosamente", "Edicion de pais", JOptionPane.INFORMATION_MESSAGE);                    
     }//GEN-LAST:event_botonEditarActionPerformed
+
+    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
+        if (tablaPaises.getSelectedRow() < 0) {
+            return;
+        }
+        
+        int filaSeleccionada = tablaPaises.getSelectedRow();
+        int idPais = (int) tablaPaises.getValueAt(filaSeleccionada, 0);
+        String nombrePaisParaEliminar = (String) tablaPaises.getValueAt(filaSeleccionada, 1);
+                
+        PaisDao paisDao = new PaisDao();
+        Pais paisParaEliminar = paisDao.buscarPorId(idPais);
+        
+        // Para eliminar un pais verificamos que no tenga registros relacionados
+        if (paisParaEliminar.getActores().size() > 0 || 
+                paisParaEliminar.getPeliculas().size() > 0 || 
+                paisParaEliminar.getDirectores().size() > 0) {
+            JOptionPane.showMessageDialog(this, "El pais no puede ser eliminado, ya que tiene informacion relacionada", "Borrado de paises", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el pais " + nombrePaisParaEliminar + " ?", "Borrado de paises", JOptionPane.YES_NO_OPTION);
+        
+        if (respuesta == JOptionPane.YES_OPTION) {
+            paisDao.eliminar(idPais);
+        
+            cargarTabla();
+            JOptionPane.showMessageDialog(this, "El pais " + nombrePaisParaEliminar + " fue eliminado", "Borrado de paises", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_botonEliminarActionPerformed
+
+    private void botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarActionPerformed
+        if (tablaPaises.getSelectedRow() < 0) {
+            return;
+        }
+        
+        int filaSeleccionada = tablaPaises.getSelectedRow();
+        int idPais = (int) tablaPaises.getValueAt(filaSeleccionada, 0);
+        
+        PaisDao paisDao = new PaisDao();
+        Pais pais = paisDao.buscarPorId(idPais);
+        
+        JOptionPane.showMessageDialog(this, "El pais " + pais.getNombre() + " tiene " + pais.getActores().size() + " actores relacionados" );
+        
+    }//GEN-LAST:event_botonMostrarActionPerformed
 
     /**
      * @param args the command line arguments
