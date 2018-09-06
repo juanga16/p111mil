@@ -13,6 +13,7 @@ import p111mil.peliculas.dao.ConfiguracionHibernate;
 import p111mil.peliculas.dao.*;
 import p111mil.peliculas.modelo.*;
 import p111mil.peliculas.ui.ABMPaises;
+import p111mil.peliculas.ui.Principal;
 import p111mil.peliculas.utilidades.ConfiguracionLogger;
 
 /**
@@ -37,15 +38,15 @@ public class P111milPeliculas {
             e.printStackTrace();
         }
         
-        ABMPaises abmPaises = new ABMPaises();
+        Principal principal = new Principal();
         
         // Lo muestra centrado en la pantalla
-        abmPaises.setLocationRelativeTo(null); 
+        principal.setLocationRelativeTo(null); 
         
         // Deshabilito el boton para maximizar
-        abmPaises.setResizable(false);                        
+        principal.setResizable(false);                        
         
-        abmPaises.setVisible(true);        
+        principal.setVisible(true);        
     }
     
     private static void crearEliminarUnaPelicula() {

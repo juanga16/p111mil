@@ -8,10 +8,8 @@ package p111mil.peliculas.ui;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import p111mil.peliculas.dao.ConfiguracionHibernate;
 import p111mil.peliculas.dao.PaisDao;
 import p111mil.peliculas.modelo.Pais;
 
@@ -20,7 +18,12 @@ import p111mil.peliculas.modelo.Pais;
  * @author PC-MAESTRO
  */
 public class ABMPaises extends javax.swing.JFrame {
+    private Principal principal;
 
+    public void setPrincipal(Principal principal) {
+        this.principal = principal;
+    }
+    
     /**
      * Creates new form ABMActores
      */
@@ -83,10 +86,10 @@ public class ABMPaises extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPaises = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
@@ -178,12 +181,6 @@ public class ABMPaises extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // Invoco el cerrar justo antes de salir del programa
-        // para liberar los recursos de la conexion con la base de datos
-        ConfiguracionHibernate.cerrar();
-    }//GEN-LAST:event_formWindowClosing
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
         String nombrePais = JOptionPane.showInputDialog(this, "Ingrese el nombre del nuevo pais");
@@ -317,9 +314,12 @@ public class ABMPaises extends javax.swing.JFrame {
         PaisDao paisDao = new PaisDao();
         Pais pais = paisDao.buscarPorId(idPais);
         
-        JOptionPane.showMessageDialog(this, "El pais " + pais.getNombre() + " tiene " + pais.getActores().size() + " actores relacionados" );
-        
+        JOptionPane.showMessageDialog(this, "El pais " + pais.getNombre() + " tiene " + pais.getActores().size() + " actores relacionados" );        
     }//GEN-LAST:event_botonMostrarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        principal.setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

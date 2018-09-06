@@ -5,6 +5,8 @@
  */
 package p111mil.peliculas.dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -73,4 +75,18 @@ public class ActorDao {
 
         session.close();
     }
+    
+    public List<Actor> buscarTodos() {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+        
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Actor> query = builder.createQuery(Actor.class);
+        Root<Actor> root = query.from(Actor.class);
+        query.select(root);
+        ArrayList<Actor> actores = (ArrayList<Actor>) session.createQuery(query).list();
+        
+        session.close();
+        
+        return actores;
+    }    
 }
