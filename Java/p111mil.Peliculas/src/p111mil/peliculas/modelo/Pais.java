@@ -74,4 +74,9 @@ public class Pais {
     public void setPeliculas(List<Pelicula> peliculas) {
         this.peliculas = peliculas;
     }        
+    
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
 }

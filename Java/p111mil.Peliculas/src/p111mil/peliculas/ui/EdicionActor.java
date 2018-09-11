@@ -5,6 +5,12 @@
  */
 package p111mil.peliculas.ui;
 
+import java.util.Date;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import p111mil.peliculas.dao.PaisDao;
+import p111mil.peliculas.modelo.Pais;
+
 /**
  *
  * @author PC-MAESTRO
@@ -17,6 +23,26 @@ public class EdicionActor extends java.awt.Dialog {
     public EdicionActor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        // Inicializo los valores de los componentes
+        textoNombre.setText("");
+        textoApellido.setText("");
+        
+        PaisDao paisDao = new PaisDao();
+        List<Pais> paises = paisDao.buscarTodos();
+                        
+        // Elijo el primer elemento del combo        
+        comboPaises.setModel(new DefaultComboBoxModel(paises.toArray()));
+        comboPaises.setSelectedIndex(0);
+        
+        // Selecciono por defecto el valor Varon
+        radioVaron.setSelected(true);
+        
+        // Seteo como valor inicial la fecha de hoy
+        fechaNacimiento.setDate(new Date());
+        
+        // Para establecer el formato de la fecha        
+        fechaNacimiento.setFormats("dd/MM/yyyy");
     }
 
     /**
@@ -27,11 +53,100 @@ public class EdicionActor extends java.awt.Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        textoNombre = new javax.swing.JTextField();
+        etiquetaGenero = new javax.swing.JLabel();
+        radioVaron = new javax.swing.JRadioButton();
+        radioMujer = new javax.swing.JRadioButton();
+        comboPaises = new javax.swing.JComboBox<>();
+        etiquetaNombre = new javax.swing.JLabel();
+        botonGuardar = new javax.swing.JButton();
+        etiquetaApellido = new javax.swing.JLabel();
+        etiquetaFechaNacimiento = new javax.swing.JLabel();
+        etiquetaPais = new javax.swing.JLabel();
+        textoApellido = new javax.swing.JTextField();
+        fechaNacimiento = new org.jdesktop.swingx.JXDatePicker();
+
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
             }
         });
+
+        etiquetaGenero.setText("Genero");
+
+        radioVaron.setText("Varon");
+
+        radioMujer.setText("Mujer");
+
+        comboPaises.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        etiquetaNombre.setText("Nombre");
+
+        botonGuardar.setText("Guardar");
+
+        etiquetaApellido.setText("Apellido");
+
+        etiquetaFechaNacimiento.setText("Fecha de Nacimiento");
+
+        etiquetaPais.setText("Pais");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(etiquetaGenero)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(etiquetaNombre)
+                            .addComponent(textoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                            .addComponent(etiquetaFechaNacimiento)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(radioVaron)
+                                .addGap(18, 18, 18)
+                                .addComponent(radioMujer))
+                            .addComponent(fechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonGuardar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(etiquetaPais)
+                                .addComponent(textoApellido)
+                                .addComponent(etiquetaApellido)
+                                .addComponent(comboPaises, 0, 248, Short.MAX_VALUE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etiquetaNombre)
+                    .addComponent(etiquetaApellido))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etiquetaFechaNacimiento)
+                    .addComponent(etiquetaPais))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(etiquetaGenero)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioVaron)
+                    .addComponent(radioMujer)
+                    .addComponent(botonGuardar))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -63,5 +178,18 @@ public class EdicionActor extends java.awt.Dialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonGuardar;
+    private javax.swing.JComboBox<String> comboPaises;
+    private javax.swing.JLabel etiquetaApellido;
+    private javax.swing.JLabel etiquetaFechaNacimiento;
+    private javax.swing.JLabel etiquetaGenero;
+    private javax.swing.JLabel etiquetaNombre;
+    private javax.swing.JLabel etiquetaPais;
+    private org.jdesktop.swingx.JXDatePicker fechaNacimiento;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private javax.swing.JRadioButton radioMujer;
+    private javax.swing.JRadioButton radioVaron;
+    private javax.swing.JTextField textoApellido;
+    private javax.swing.JTextField textoNombre;
     // End of variables declaration//GEN-END:variables
 }

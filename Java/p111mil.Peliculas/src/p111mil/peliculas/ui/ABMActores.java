@@ -5,6 +5,7 @@
  */
 package p111mil.peliculas.ui;
 
+import java.awt.Dialog;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -135,14 +136,14 @@ public class ABMActores extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(botonNuevo)
                         .addGap(18, 18, 18)
                         .addComponent(botonEliminar)
                         .addGap(18, 18, 18)
                         .addComponent(botonEditar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 511, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -169,6 +170,7 @@ public class ABMActores extends javax.swing.JFrame {
         EdicionActor edicionActor = new EdicionActor(this, true);
         
         edicionActor.setLocationRelativeTo(null);
+        edicionActor.pack();
         edicionActor.setVisible(true);
     }//GEN-LAST:event_botonNuevoActionPerformed
 
