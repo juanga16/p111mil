@@ -2,7 +2,7 @@
 
 <Form version="1.2" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.DialogFormInfo">
   <NonVisualComponents>
-    <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker1">
+    <Component class="javax.swing.ButtonGroup" name="grupoGenero">
     </Component>
   </NonVisualComponents>
   <SyntheticProperties>
@@ -105,11 +105,17 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="radioVaron">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="grupoGenero"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Varon"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="radioMujer">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="grupoGenero"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Mujer"/>
       </Properties>
     </Component>
@@ -137,6 +143,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonGuardarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="etiquetaApellido">
       <Properties>

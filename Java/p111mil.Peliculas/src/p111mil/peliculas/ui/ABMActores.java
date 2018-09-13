@@ -170,8 +170,9 @@ public class ABMActores extends javax.swing.JFrame {
         EdicionActor edicionActor = new EdicionActor(this, true);
         
         edicionActor.setLocationRelativeTo(null);
-        edicionActor.pack();
         edicionActor.setVisible(true);
+        
+        cargarTabla();
     }//GEN-LAST:event_botonNuevoActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
@@ -203,7 +204,18 @@ public class ABMActores extends javax.swing.JFrame {
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
+        // Si no tengo nada seleccionado me voy
+        if (tablaActores.getSelectedRow() < 0) {
+            return;
+        }
         
+        int filaSeleccionada = tablaActores.getSelectedRow();
+        
+        // Usamos el metodo getValueAt para obtener el ID (que es la columna 0)
+        int idActor = (int) tablaActores.getValueAt(filaSeleccionada, 0);
+        
+        ActorDao actorDao = new ActorDao();        
+        Actor actorParaEditar = actorDao.buscarPorId(idActor);
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void tablaActoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaActoresMouseClicked

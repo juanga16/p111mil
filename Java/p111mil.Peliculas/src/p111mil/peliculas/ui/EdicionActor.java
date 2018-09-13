@@ -8,7 +8,10 @@ package p111mil.peliculas.ui;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import p111mil.peliculas.dao.ActorDao;
 import p111mil.peliculas.dao.PaisDao;
+import p111mil.peliculas.modelo.Actor;
 import p111mil.peliculas.modelo.Pais;
 
 /**
@@ -53,7 +56,7 @@ public class EdicionActor extends java.awt.Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        grupoGenero = new javax.swing.ButtonGroup();
         textoNombre = new javax.swing.JTextField();
         etiquetaGenero = new javax.swing.JLabel();
         radioVaron = new javax.swing.JRadioButton();
@@ -75,8 +78,10 @@ public class EdicionActor extends java.awt.Dialog {
 
         etiquetaGenero.setText("Genero");
 
+        grupoGenero.add(radioVaron);
         radioVaron.setText("Varon");
 
+        grupoGenero.add(radioMujer);
         radioMujer.setText("Mujer");
 
         comboPaises.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -84,6 +89,11 @@ public class EdicionActor extends java.awt.Dialog {
         etiquetaNombre.setText("Nombre");
 
         botonGuardar.setText("Guardar");
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarActionPerformed(evt);
+            }
+        });
 
         etiquetaApellido.setText("Apellido");
 
@@ -156,8 +166,69 @@ public class EdicionActor extends java.awt.Dialog {
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         setVisible(false);
-        dispose();
+        dispose();       
     }//GEN-LAST:event_closeDialog
+
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+        if (textoNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El nombre del actor no puede estar vacio", "Edicion de actor", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (textoNombre.getText().length() > 50) {
+            JOptionPane.showMessageDialog(this, "El nombre del actor no puede tener mas de 50 caracteres", "Edicion de actor", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (textoApellido.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El apellido del actor no puede estar vacio", "Edicion de actor", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (textoApellido.getText().length() > 50) {
+            JOptionPane.showMessageDialog(this, "El apellido del actor no puede tener mas de 50 caracteres", "Edicion de actor", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (fechaNacimiento.getDate() == null)
+        {
+            JOptionPane.showMessageDialog(this, "La fecha de nacimiento no puede estar vacia", "Edicion de actor", JOptionPane.WARNING_MESSAGE);
+            return;       
+        }
+        
+        ActorDao actorDao = new ActorDao();
+        
+        if (actorDao.buscarPorNombreApellido(textoNombre.getText(), textoApellido.getText()) != null)
+        {
+            JOptionPane.showMessageDialog(this, "Ya existe un actor con el mismo nombre", "Edicion de actor", JOptionPane.WARNING_MESSAGE);
+            return;       
+        }
+        
+        Actor actor = new Actor();
+                
+        actor.setNombre(textoNombre.getText());
+        actor.setApellido(textoApellido.getText());
+        
+        // Obtengo del combo el pais que tengo seleccionado
+        Pais pais = (Pais) comboPaises.getSelectedItem();
+        actor.setPais(pais);
+                
+        actor.setFechaNacimiento(fechaNacimiento.getDate());
+        
+        if (radioVaron.isSelected())
+        {
+            actor.setGenero("M");
+        }
+        else
+        {
+            actor.setGenero("F");
+        }
+                    
+        actorDao.guardar(actor);
+        
+        JOptionPane.showMessageDialog(this, "El actor se ha guardado exitosamente", "Edicion de actor", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+    }//GEN-LAST:event_botonGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,7 +257,7 @@ public class EdicionActor extends java.awt.Dialog {
     private javax.swing.JLabel etiquetaNombre;
     private javax.swing.JLabel etiquetaPais;
     private org.jdesktop.swingx.JXDatePicker fechaNacimiento;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private javax.swing.ButtonGroup grupoGenero;
     private javax.swing.JRadioButton radioMujer;
     private javax.swing.JRadioButton radioVaron;
     private javax.swing.JTextField textoApellido;

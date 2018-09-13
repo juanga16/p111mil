@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import p111mil.peliculas.modelo.Actor;
@@ -88,5 +89,22 @@ public class ActorDao {
         session.close();
         
         return actores;
-    }    
+    }  
+    
+    public Actor buscarPorNombreApellido(String nombre, String apellido)
+    {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+        
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Actor> query = builder.createQuery(Actor.class);
+        Root<Actor> root = query.from(Actor.class);
+        query.select(root);
+        Predicate predicate = builder.and(builder.equal(root.get("nombre"), nombre), builder.equal(root.get("apellido"), apellido));
+        query.where(predicate);                
+        Actor actor = (Actor) session.createQuery(query).uniqueResult();
+        
+        session.close();
+        
+        return actor;
+    }
 }
