@@ -77,6 +77,7 @@ public class Inicial extends javax.swing.JFrame {
 
     private void botonMostrarModalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarModalActionPerformed
         Modal modal = new Modal();
+        // Invoco al metodo mostrarFormulario y paso a Inicial como parametro
         modal.mostrarFormulario(this);        
     }//GEN-LAST:event_botonMostrarModalActionPerformed
 
