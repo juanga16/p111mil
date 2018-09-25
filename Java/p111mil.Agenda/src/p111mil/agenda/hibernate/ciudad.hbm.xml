@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="p111mil.agenda.modelo.Ciudad" table="ciudad">
+        <id name="id" type="integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" />
+        </property>
+        <!-- Configuro la relacion 1:M con Contactos -->
+        <bag name="contactos" cascade="none" lazy="false" inverse="true">
+            <key column="id_ciudad" not-null="true" />
+            <one-to-many class="p111mil.agenda.modelo.Contacto" />
+        </bag>
+    </class>
+</hibernate-mapping>

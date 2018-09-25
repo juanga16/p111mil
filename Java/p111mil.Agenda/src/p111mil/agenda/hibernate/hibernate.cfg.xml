@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/agenda?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">p111mil</property>
+    <!-- Esto significa que va a imprimir las consultas en la consola -->
+    <property name="show_sql">true</property>
+    <!-- Agrego la refencia a los mapeos de cada clase -->
+    <mapping resource="p111mil/agenda/hibernate/ciudad.hbm.xml"/>
+    <mapping resource="p111mil/agenda/hibernate/contacto.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>
