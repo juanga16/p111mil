@@ -40,5 +40,8 @@ public class Ciudad {
         this.contactos = contactos;
     }
     
-    
+    @Override
+    public String toString() {
+        return this.getNombre();
+    }    
 }

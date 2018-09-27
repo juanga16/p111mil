@@ -5,7 +5,11 @@
  */
 package p111mil.agenda.formularios;
 
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import p111mil.agenda.modelo.Ciudad;
+import p111mil.agenda.dao.CiudadDao;
 
 /**
  *
@@ -27,6 +31,12 @@ public class Edicion extends javax.swing.JFrame {
      */
     public Edicion() {
         initComponents();
+        
+        CiudadDao ciudadDao = new CiudadDao();
+        List<Ciudad> ciudades = ciudadDao.buscarTodos();
+        
+        comboCiudades.setModel(new DefaultComboBoxModel(ciudades.toArray()));
+        comboCiudades.setSelectedIndex(0);
     }
 
     /**

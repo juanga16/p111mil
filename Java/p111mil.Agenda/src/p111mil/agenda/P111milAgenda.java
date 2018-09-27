@@ -7,6 +7,7 @@ package p111mil.agenda;
 
 import javax.swing.UIManager;
 import p111mil.agenda.formularios.Listado;
+import p111mil.agenda.dao.ConfiguracionHibernate;
 
 /**
  *
@@ -18,6 +19,8 @@ public class P111milAgenda {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        ConfiguracionHibernate.configurar();
+        
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
