@@ -5,11 +5,15 @@
  */
 package p111mil.agenda.formularios;
 
+import java.text.NumberFormat;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import p111mil.agenda.modelo.Ciudad;
 import p111mil.agenda.dao.CiudadDao;
+import p111mil.agenda.dao.ContactoDao;
+import p111mil.agenda.modelo.Contacto;
 
 /**
  *
@@ -26,17 +30,37 @@ public class Edicion extends javax.swing.JFrame {
         this.setVisible(true);        
     }
     
+    public void cerrarFormulario() {
+        this.dispose();
+        this.listado.setVisible(true);
+        this.listado.setEnabled(true);
+    }
+    
+    private void limpiarFormulario() {
+        this.textoNombre.setText("");
+        this.textoApellido.setText("");
+        this.textoTelefono.setText("");
+        this.comboCiudades.setSelectedIndex(0);        
+    }
+    
     /**
      * Creates new form Edicion
      */
     public Edicion() {
         initComponents();
         
+        // Para evitar hacer copy/paste sobre los campos
+        textoNombre.setTransferHandler(null);
+        textoApellido.setTransferHandler(null);
+        textoTelefono.setTransferHandler(null);
+        
         CiudadDao ciudadDao = new CiudadDao();
         List<Ciudad> ciudades = ciudadDao.buscarTodos();
         
         comboCiudades.setModel(new DefaultComboBoxModel(ciudades.toArray()));
         comboCiudades.setSelectedIndex(0);
+        
+        limpiarFormulario();
     }
 
     /**
@@ -60,6 +84,8 @@ public class Edicion extends javax.swing.JFrame {
         botonGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Edicion de Contacto");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -69,12 +95,27 @@ public class Edicion extends javax.swing.JFrame {
         labelNombre.setText("Nombre");
 
         textoNombre.setText("Nombre");
+        textoNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textoNombreKeyTyped(evt);
+            }
+        });
 
         textoApellido.setText("Apellido");
+        textoApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textoApellidoKeyTyped(evt);
+            }
+        });
 
         labelApellido.setText("Apellido");
 
         textoTelefono.setText("Telefono");
+        textoTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textoTelefonoKeyTyped(evt);
+            }
+        });
 
         labelNombre2.setText("Teléfono");
 
@@ -90,6 +131,11 @@ public class Edicion extends javax.swing.JFrame {
         });
 
         botonGuardar.setText("Guardar");
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,20 +192,105 @@ public class Edicion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
-        this.dispose();
+        this.cerrarFormulario();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        int opcionSeleccionada = JOptionPane.showConfirmDialog(this, "¿Desea cancelar la edicion?",  "Edición", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        if(opcionSeleccionada == JOptionPane.YES_OPTION) {
-            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            this.listado.setEnabled(true);
-        } else {
-            // Si elegi que No, prevengo que el formulario se cierre
-            setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        }
+        this.listado.setVisible(true);
+        this.listado.setEnabled(true);
     }//GEN-LAST:event_formWindowClosing
+
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+        // 1. Validamos que todos los datos sean validos
+        if (textoNombre.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "El Nombre es obligatorio", "Edicion de Contacto", JOptionPane.INFORMATION_MESSAGE);
+            // Seteo el cursor sobre el campo Nombre
+            textoNombre.requestFocus();
+            return;
+        }
+        
+        if (textoApellido.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "El Apellido es obligatorio", "Edicion de Contacto", JOptionPane.INFORMATION_MESSAGE);
+            // Seteo el cursor sobre el campo Apellido
+            textoApellido.requestFocus();
+            return;
+        }
+        
+        if (textoTelefono.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "El Telefono es obligatorio", "Edicion de Contacto", JOptionPane.INFORMATION_MESSAGE);
+            // Seteo el cursor sobre el campo Telefono
+            textoTelefono.requestFocus();
+            return;
+        }
+        
+        if (textoNombre.getText().length() > 50) {
+            JOptionPane.showMessageDialog(this, "La longitud del Nombre no puede ser mayor a 50 caracteres", "Edicion de Contacto", JOptionPane.INFORMATION_MESSAGE);
+            // Seteo el cursor sobre el campo Telefono
+            textoNombre.requestFocus();
+            return;
+        }
+        
+        if (textoApellido.getText().length() > 50) {
+            JOptionPane.showMessageDialog(this, "La longitud del Apellido no puede ser mayor a 50 caracteres", "Edicion de Contacto", JOptionPane.INFORMATION_MESSAGE);
+            // Seteo el cursor sobre el campo Telefono
+            textoApellido.requestFocus();
+            return;
+        }        
+                        
+        if (textoTelefono.getText().length() > 50) {
+            JOptionPane.showMessageDialog(this, "La longitud del Telefono no puede ser mayor a 50 caracteres", "Edicion de Contacto", JOptionPane.INFORMATION_MESSAGE);
+            // Seteo el cursor sobre el campo Telefono
+            textoNombre.requestFocus();
+            return;
+        }
+        
+        // 2. Guardamos en la base de datos
+        Contacto contacto = new Contacto();
+        
+        contacto.setNombre(textoNombre.getText());
+        contacto.setApellido(textoApellido.getText());
+        contacto.setTelefono(textoTelefono.getText());
+        contacto.setCiudad((Ciudad) comboCiudades.getSelectedItem());
+        
+        ContactoDao contactoDao = new ContactoDao();
+        contactoDao.guardar(contacto);
+        
+        // 3. Cerramos el formulario y refrescamos la base de datos
+        this.cerrarFormulario();        
+    }//GEN-LAST:event_botonGuardarActionPerformed
+
+    private void textoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoNombreKeyTyped
+        if (textoNombre.getText().length() >= 50) {
+            // Si ya llegue a los 5 caracteres el consume() hace que de ahora en mas las teclas no agreguen mas caracteres
+            evt.consume();
+        }
+    }//GEN-LAST:event_textoNombreKeyTyped
+
+    private void textoApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoApellidoKeyTyped
+        if (textoApellido.getText().length() >= 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_textoApellidoKeyTyped
+
+    private void textoTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoTelefonoKeyTyped
+        if (textoTelefono.getText().length() >= 50) {
+            evt.consume();
+        } else {        
+            char caracter = evt.getKeyChar();
+
+            // Verificar si la tecla pulsada no es un digito
+            // Caracteres validos: 0123456789 +#*
+            if(((caracter < '0') ||
+                (caracter > '9')) &&
+                (caracter != '+') &&
+                (caracter != '#') &&
+                (caracter != '*') &&
+                (caracter != '\b')) /* corresponde a BACK_SPACE */
+            {
+                evt.consume();  // ignorar el evento de teclado
+            }
+        }               
+    }//GEN-LAST:event_textoTelefonoKeyTyped
 
     /**
      * @param args the command line arguments

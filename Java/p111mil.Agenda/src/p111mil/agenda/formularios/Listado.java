@@ -37,6 +37,8 @@ public class Listado extends javax.swing.JFrame {
         botonEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Contactos");
+        setResizable(false);
 
         labelBusqueda.setText("Búsqueda");
 
