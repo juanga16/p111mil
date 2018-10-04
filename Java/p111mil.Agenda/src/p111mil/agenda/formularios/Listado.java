@@ -5,17 +5,39 @@
  */
 package p111mil.agenda.formularios;
 
+import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import p111mil.agenda.dao.ContactoDao;
+import p111mil.agenda.modelo.Contacto;
+
 /**
  *
  * @author PC-MAESTRO
  */
 public class Listado extends javax.swing.JFrame {
 
+    public void cargarTabla() {
+        ContactoDao contactoDao = new ContactoDao();
+        List<Contacto> contactos = contactoDao.buscarTodos();
+        ContactoModeloTabla contactoModeloTabla = new ContactoModeloTabla(contactos);
+                
+        tablaContactos.setModel(contactoModeloTabla);
+        tablaContactos.setRowSelectionAllowed(true);
+        tablaContactos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        tablaContactos.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);        
+    }
+    
     /**
      * Creates new form Listado
      */
     public Listado() {
         initComponents();
+        cargarTabla();
     }
 
     /**
@@ -31,7 +53,7 @@ public class Listado extends javax.swing.JFrame {
         textoBusqueda = new javax.swing.JTextField();
         botonBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaContactos = new javax.swing.JTable();
         botonNuevo = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
         botonEditar = new javax.swing.JButton();
@@ -49,7 +71,7 @@ public class Listado extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaContactos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -60,7 +82,7 @@ public class Listado extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaContactos);
 
         botonNuevo.setText("Nuevo");
         botonNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -188,8 +210,8 @@ public class Listado extends javax.swing.JFrame {
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonNuevo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelBusqueda;
+    private javax.swing.JTable tablaContactos;
     private javax.swing.JTextField textoBusqueda;
     // End of variables declaration//GEN-END:variables
 }
