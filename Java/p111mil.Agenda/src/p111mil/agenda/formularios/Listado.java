@@ -17,10 +17,9 @@ import p111mil.agenda.modelo.Contacto;
  * @author PC-MAESTRO
  */
 public class Listado extends javax.swing.JFrame {
-
-    public void cargarTabla() {
-        ContactoDao contactoDao = new ContactoDao();
-        List<Contacto> contactos = contactoDao.buscarTodos();
+    private ContactoDao contactoDao;
+    
+    public void cargarTabla(List<Contacto> contactos) {
         ContactoModeloTabla contactoModeloTabla = new ContactoModeloTabla(contactos);
                 
         tablaContactos.setModel(contactoModeloTabla);
@@ -36,8 +35,11 @@ public class Listado extends javax.swing.JFrame {
      * Creates new form Listado
      */
     public Listado() {
+        contactoDao = new ContactoDao();
+        
         initComponents();
-        cargarTabla();
+                
+        cargarTabla(contactoDao.buscarTodos());
     }
 
     /**
@@ -166,7 +168,7 @@ public class Listado extends javax.swing.JFrame {
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        
+        cargarTabla(contactoDao.buscarPor(textoBusqueda.getText()));
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     /**
