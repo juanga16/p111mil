@@ -5,10 +5,13 @@
  */
 package p111mil.agenda.formularios;
 
+import java.awt.Component;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import p111mil.agenda.dao.ContactoDao;
 import p111mil.agenda.modelo.Contacto;
 
@@ -18,6 +21,22 @@ import p111mil.agenda.modelo.Contacto;
  */
 public class Listado extends javax.swing.JFrame {
     private ContactoDao contactoDao;
+    
+    public void ajustarAnchosColumnas() {
+        final TableColumnModel columnModel = tablaContactos.getColumnModel();
+        for (int column = 0; column < tablaContactos.getColumnCount(); column++) {
+            int width = 50; // Min width
+            
+            for (int row = 0; row < tablaContactos.getRowCount(); row++) {
+                TableCellRenderer renderer = tablaContactos.getCellRenderer(row, column);
+                Component comp = tablaContactos.prepareRenderer(renderer, row, column);
+                width = Math.max(comp.getPreferredSize().width, width);
+            }
+            
+            columnModel.getColumn(column).setPreferredWidth(width);
+            columnModel.getColumn(column).setMinWidth(10);
+        }
+    }
     
     public void cargarTabla(List<Contacto> contactos) {
         ContactoModeloTabla contactoModeloTabla = new ContactoModeloTabla(contactos);
@@ -40,6 +59,7 @@ public class Listado extends javax.swing.JFrame {
         initComponents();
                 
         cargarTabla(contactoDao.buscarTodos());
+        ajustarAnchosColumnas();
     }
 
     /**
@@ -62,7 +82,6 @@ public class Listado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Contactos");
-        setResizable(false);
 
         labelBusqueda.setText("Búsqueda");
 
