@@ -42,6 +42,20 @@ public class Ciudad {
     
     @Override
     public String toString() {
-        return this.getNombre();
+        return this.getNombre(); 
+    }    
+    
+    @Override  
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+        
+        if (!(object instanceof Ciudad)) {
+            return false;
+        }
+        
+        Ciudad ciudad = (Ciudad) object;
+        return (this.getId() == ciudad.id);
     }    
 }

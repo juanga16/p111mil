@@ -77,4 +77,26 @@ public class ContactoDao {
         
         return contactos;        
     }
+    
+    public void eliminar(int id) {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
+        
+        session.beginTransaction();
+        // Busco el contacto por el id
+        Contacto contacto = session.get(Contacto.class, id);
+         
+        // Elimino fisicamente el contacto
+        session.delete(contacto);
+        session.getTransaction().commit();
+
+        session.close();
+    }
+
+    public Contacto buscarPorId(int id) {
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();                
+        Contacto contacto = session.get(Contacto.class, id);        
+        session.close();
+        
+        return contacto;
+    }
 }

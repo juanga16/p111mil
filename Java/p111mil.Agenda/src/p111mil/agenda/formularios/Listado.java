@@ -8,6 +8,7 @@ package p111mil.agenda.formularios;
 import java.awt.Component;
 import java.util.List;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
@@ -23,18 +24,20 @@ public class Listado extends javax.swing.JFrame {
     private ContactoDao contactoDao;
     
     public void ajustarAnchosColumnas() {
+        int maxWidth = 50; // Max width
+        int minWidth = 20; // Min width
+        
         final TableColumnModel columnModel = tablaContactos.getColumnModel();
+        
         for (int column = 0; column < tablaContactos.getColumnCount(); column++) {
-            int width = 50; // Min width
-            
             for (int row = 0; row < tablaContactos.getRowCount(); row++) {
                 TableCellRenderer renderer = tablaContactos.getCellRenderer(row, column);
                 Component comp = tablaContactos.prepareRenderer(renderer, row, column);
-                width = Math.max(comp.getPreferredSize().width, width);
+                maxWidth = Math.max(comp.getPreferredSize().width, maxWidth);
             }
             
-            columnModel.getColumn(column).setPreferredWidth(width);
-            columnModel.getColumn(column).setMinWidth(10);
+            columnModel.getColumn(column).setPreferredWidth(maxWidth);
+            columnModel.getColumn(column).setMinWidth(minWidth);
         }
     }
     
@@ -49,6 +52,19 @@ public class Listado extends javax.swing.JFrame {
         rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
         tablaContactos.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);        
     }
+        
+    private void habilitarBotones() {
+        // Si tengo una fila seleccionada, habilito los botones
+        if (tablaContactos.getSelectedRow() >= 0) {
+            botonEliminar.setEnabled(true);
+            botonEditar.setEnabled(true);
+        }
+    }
+    
+    private void deshabilitarBotones() {
+        botonEliminar.setEnabled(false);
+        botonEditar.setEnabled(false);        
+    }
     
     /**
      * Creates new form Listado
@@ -57,6 +73,8 @@ public class Listado extends javax.swing.JFrame {
         contactoDao = new ContactoDao();
         
         initComponents();
+        
+        deshabilitarBotones();
                 
         cargarTabla(contactoDao.buscarTodos());
         ajustarAnchosColumnas();
@@ -79,6 +97,7 @@ public class Listado extends javax.swing.JFrame {
         botonNuevo = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
         botonEditar = new javax.swing.JButton();
+        botonMostrarTodo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Contactos");
@@ -103,6 +122,14 @@ public class Listado extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaContactos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaContactosMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tablaContactosMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaContactos);
 
         botonNuevo.setText("Nuevo");
@@ -126,6 +153,13 @@ public class Listado extends javax.swing.JFrame {
             }
         });
 
+        botonMostrarTodo.setText("Mostrar Todo");
+        botonMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonMostrarTodoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,16 +172,18 @@ public class Listado extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelBusqueda)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(textoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(botonBuscar))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(botonNuevo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botonEditar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botonEliminar)))
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                                .addComponent(botonEliminar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(textoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botonBuscar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botonMostrarTodo)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -158,7 +194,8 @@ public class Listado extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonBuscar))
+                    .addComponent(botonBuscar)
+                    .addComponent(botonMostrarTodo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -178,17 +215,58 @@ public class Listado extends javax.swing.JFrame {
     }//GEN-LAST:event_botonNuevoActionPerformed
 
     private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
+        if (tablaContactos.getSelectedRow() < 0) {
+            return;
+        }
+        
+        int filaSeleccionada = tablaContactos.getSelectedRow();
+        int idContacto = (int) tablaContactos.getValueAt(filaSeleccionada, 0);                                       
+        
+        ContactoDao contactoDao = new ContactoDao();
+        Contacto contactoExistente = contactoDao.buscarPorId(idContacto);
+                
         Edicion edicion = new Edicion();
+        edicion.setContacto(contactoExistente);
         edicion.mostrarFormulario(this);
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
+        if (tablaContactos.getSelectedRow() < 0) {
+            return;
+        }
         
+        int filaSeleccionada = tablaContactos.getSelectedRow();
+        int idContacto = (int) tablaContactos.getValueAt(filaSeleccionada, 0);                                       
+        
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el contacto ?", "Borrado de Contacto", JOptionPane.YES_NO_OPTION);
+        
+        if (respuesta == JOptionPane.YES_OPTION) {
+            ContactoDao contactoDao = new ContactoDao();
+            
+            contactoDao.eliminar(idContacto);
+                    
+            cargarTabla(contactoDao.buscarTodos());
+            textoBusqueda.setText("");
+            deshabilitarBotones();
+        }        
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         cargarTabla(contactoDao.buscarPor(textoBusqueda.getText()));
     }//GEN-LAST:event_botonBuscarActionPerformed
+
+    private void botonMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarTodoActionPerformed
+        textoBusqueda.setText("");
+        cargarTabla(contactoDao.buscarTodos());
+    }//GEN-LAST:event_botonMostrarTodoActionPerformed
+
+    private void tablaContactosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaContactosMouseClicked
+        habilitarBotones();
+    }//GEN-LAST:event_tablaContactosMouseClicked
+
+    private void tablaContactosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaContactosMouseReleased
+        habilitarBotones();
+    }//GEN-LAST:event_tablaContactosMouseReleased
 
     /**
      * @param args the command line arguments
@@ -229,6 +307,7 @@ public class Listado extends javax.swing.JFrame {
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonEliminar;
+    private javax.swing.JButton botonMostrarTodo;
     private javax.swing.JButton botonNuevo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelBusqueda;

@@ -5,10 +5,8 @@
  */
 package p111mil.agenda.formularios;
 
-import java.text.NumberFormat;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import p111mil.agenda.modelo.Ciudad;
 import p111mil.agenda.dao.CiudadDao;
@@ -21,6 +19,18 @@ import p111mil.agenda.modelo.Contacto;
  */
 public class Edicion extends javax.swing.JFrame {
     private Listado listado;
+    private int idContacto = 0;
+    /**
+     * Recibe el contacto para editar: llena los campos y guarda el idContacto
+     * @param contacto 
+     */    
+    public void setContacto(Contacto contacto) {
+        textoNombre.setText(contacto.getNombre());
+        textoApellido.setText(contacto.getApellido());
+        textoTelefono.setText(contacto.getTelefono());
+        comboCiudades.setSelectedItem(contacto.getCiudad());
+        idContacto = contacto.getId();
+    }
     
     public void mostrarFormulario(Listado listado) {
         this.listado = listado;        
@@ -31,9 +41,9 @@ public class Edicion extends javax.swing.JFrame {
     }
     
     public void cerrarFormulario() {
-        this.dispose();
+        this.dispose();        
         this.listado.setVisible(true);
-        this.listado.setEnabled(true);
+        this.listado.setEnabled(true);               
     }
     
     private void limpiarFormulario() {
@@ -247,6 +257,7 @@ public class Edicion extends javax.swing.JFrame {
         // 2. Guardamos en la base de datos
         Contacto contacto = new Contacto();
         
+        contacto.setId(idContacto);
         contacto.setNombre(textoNombre.getText());
         contacto.setApellido(textoApellido.getText());
         contacto.setTelefono(textoTelefono.getText());
@@ -255,7 +266,8 @@ public class Edicion extends javax.swing.JFrame {
         ContactoDao contactoDao = new ContactoDao();
         contactoDao.guardar(contacto);
         
-        // 3. Cerramos el formulario y refrescamos la base de datos
+        // 3. Cerramos el formulario y refrescamos la base de datos        
+        this.listado.cargarTabla(contactoDao.buscarTodos());        
         this.cerrarFormulario();        
     }//GEN-LAST:event_botonGuardarActionPerformed
 

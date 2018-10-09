@@ -20,6 +20,6 @@
         </property>
         <!-- NO se mapea la foreign key id_ciudad -->
         <!-- mapeo de la propiedad Ciudad -->
-        <many-to-one name="ciudad" class="p111mil.agenda.modelo.Ciudad" column="id_ciudad" cascade="none" not-null="true" insert="true" update="false" lazy="false" unique="true" />
+        <many-to-one name="ciudad" class="p111mil.agenda.modelo.Ciudad" column="id_ciudad" cascade="none" not-null="true" insert="true" update="true" lazy="false" unique="true" />
     </class>
 </hibernate-mapping>
