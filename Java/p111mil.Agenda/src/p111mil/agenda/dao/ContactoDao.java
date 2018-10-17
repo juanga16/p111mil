@@ -7,8 +7,6 @@ package p111mil.agenda.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
@@ -23,35 +21,31 @@ import p111mil.agenda.utilidades.ConfiguracionLogger;
  * @author Invitado
  */
 public class ContactoDao {    
-    
+       
     public void guardar(Contacto contacto) {                      
-        ConfiguracionLogger.getLogger().log(Level.INFO, "Comenzando");                
+        ConfiguracionLogger.info("Comenzando");
         
-        Session session = ConfiguracionHibernate.getSessionFactory().openSession();        
-        
-        
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();
         session.beginTransaction();        
         
         try {
             session.saveOrUpdate(contacto);        
             session.getTransaction().commit();        
         } catch(Exception exception) {
-            session.getTransaction().rollback();            
-            ConfiguracionLogger.getLogger().log(Level.SEVERE, exception.getMessage());
-            ConfiguracionLogger.getLogger().log(Level.SEVERE, exception.getLocalizedMessage());
-            ConfiguracionLogger.getLogger().log(Level.SEVERE, exception.getStackTrace().toString());
+            session.getTransaction().rollback();
+            ConfiguracionLogger.debug(exception);
         }
-        session.close();        
         
-        ConfiguracionLogger.getLogger().log(Level.INFO, "Finalizando");
+        session.close();                
+        ConfiguracionLogger.info("Finalizando");
     }   
     
     public List<Contacto> buscarTodos() {
-        ConfiguracionLogger.getLogger().log(Level.INFO, "Comenzando");
-        
-        Session session = ConfiguracionHibernate.getSessionFactory().openSession();                
         ArrayList<Contacto> contactos = new ArrayList<Contacto>();
-        
+        ConfiguracionLogger.info("Comenzando");
+                
+        Session session = ConfiguracionHibernate.getSessionFactory().openSession();
+            
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Contacto> query = builder.createQuery(Contacto.class);
         Root<Contacto> root = query.from(Contacto.class);
@@ -63,9 +57,9 @@ public class ContactoDao {
         query.orderBy(orders);
         // Ejecuto la consulta y guardo el resultado en una lista de Pais
         contactos = (ArrayList<Contacto>) session.createQuery(query).list();
-            
+        
         session.close();
-        ConfiguracionLogger.getLogger().log(Level.INFO, "Finalizando");                
+        ConfiguracionLogger.info("Finalizando");
                 
         return contactos;
     }    

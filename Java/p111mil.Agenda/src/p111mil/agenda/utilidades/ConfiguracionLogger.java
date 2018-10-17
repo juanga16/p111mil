@@ -5,29 +5,18 @@
  */
 package p111mil.agenda.utilidades;
 
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-
 /**
  *
  * @author Invitado
  */
 public class ConfiguracionLogger {
-    private final static Logger LOGGER = Logger.getLogger("Agenda");
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger("Agenda");    
     
-    public static void configurar() {    
-        try {
-            // Estoy diciendo que voy a loguear en un archivo de texto y con el parametro true significa que se agrega la informacion al final
-            FileHandler fileHandler = new FileHandler("Agenda.log", true);
-            fileHandler.setFormatter(new SimpleFormatter());
-            LOGGER.addHandler(fileHandler);
-        } catch(Exception exception) {
-            System.out.println(exception.getStackTrace());
-        }
-    } 
+    public static void info(String message) {
+        LOGGER.info(message);
+    }
     
-    public static Logger getLogger() {
-        return LOGGER;    
+    public static void debug(Exception exception) {
+        LOGGER.debug(exception);
     }
 }

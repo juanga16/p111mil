@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<Configuration status="TRACE">
+  <Properties>
+    <Property name="log-path">./logs</Property>
+  </Properties>
+  <Appenders>
+    <RollingFile name="RollingFile" fileName="${log-path}/Agenda.log" filePattern="${log-path}/Agenda-%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p]\t%m%n</pattern>
+      </PatternLayout>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="10 MB" />
+      </Policies>
+      <DefaultRolloverStrategy max="32" />
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Logger name="Agenda" level="debug" additivity="false">
+      <appender-ref ref="RollingFile" level="DEBUG" />
+    </Logger>
+  </Loggers>
+</Configuration>
