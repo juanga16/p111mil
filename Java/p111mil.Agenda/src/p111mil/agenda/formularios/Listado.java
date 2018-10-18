@@ -13,6 +13,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import org.apache.log4j.Logger;
 import p111mil.agenda.dao.ContactoDao;
 import p111mil.agenda.modelo.Contacto;
 
@@ -98,6 +99,7 @@ public class Listado extends javax.swing.JFrame {
         botonEliminar = new javax.swing.JButton();
         botonEditar = new javax.swing.JButton();
         botonMostrarTodo = new javax.swing.JButton();
+        botonLoguearExcepcion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Contactos");
@@ -160,6 +162,13 @@ public class Listado extends javax.swing.JFrame {
             }
         });
 
+        botonLoguearExcepcion.setText("Loguear Excepcion");
+        botonLoguearExcepcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonLoguearExcepcionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,18 +181,20 @@ public class Listado extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelBusqueda)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(botonNuevo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botonEditar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botonEliminar))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(textoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botonBuscar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botonMostrarTodo)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(botonNuevo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botonEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botonEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonLoguearExcepcion)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -202,7 +213,8 @@ public class Listado extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonNuevo)
                     .addComponent(botonEliminar)
-                    .addComponent(botonEditar))
+                    .addComponent(botonEditar)
+                    .addComponent(botonLoguearExcepcion))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -268,6 +280,18 @@ public class Listado extends javax.swing.JFrame {
         habilitarBotones();
     }//GEN-LAST:event_tablaContactosMouseReleased
 
+    private void botonLoguearExcepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLoguearExcepcionActionPerformed
+        Logger logger = org.apache.log4j.Logger.getLogger("Agenda");        
+        
+        try {
+            int dividendo = 1;
+            int divisor = 0;
+            int resultado = dividendo / divisor;            
+        } catch(Exception exception) {
+            logger.error("Excepcion", exception);
+        }
+    }//GEN-LAST:event_botonLoguearExcepcionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -307,6 +331,7 @@ public class Listado extends javax.swing.JFrame {
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonEliminar;
+    private javax.swing.JButton botonLoguearExcepcion;
     private javax.swing.JButton botonMostrarTodo;
     private javax.swing.JButton botonNuevo;
     private javax.swing.JScrollPane jScrollPane1;

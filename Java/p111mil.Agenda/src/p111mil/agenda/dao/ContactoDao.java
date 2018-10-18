@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import p111mil.agenda.modelo.Contacto;
 
@@ -20,7 +21,7 @@ import p111mil.agenda.modelo.Contacto;
  * @author Invitado
  */
 public class ContactoDao {    
-    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger("Agenda");
+    private static final Logger LOGGER = org.apache.log4j.Logger.getLogger("Agenda");
     
     public void guardar(Contacto contacto) {                      
         LOGGER.info("Comenzando");
@@ -32,8 +33,7 @@ public class ContactoDao {
             session.saveOrUpdate(contacto);        
             session.getTransaction().commit();        
         } catch(Exception exception) {
-            session.getTransaction().rollback();
-            LOGGER.error(exception);
+            LOGGER.error("Excepcion:", exception);
         }
         
         session.close();                
@@ -46,17 +46,21 @@ public class ContactoDao {
                 
         Session session = ConfiguracionHibernate.getSessionFactory().openSession();
             
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Contacto> query = builder.createQuery(Contacto.class);
-        Root<Contacto> root = query.from(Contacto.class);
-        query.select(root);
-        // Para que ordene por dos campos
-        List<Order> orders = new ArrayList<Order>();
-        orders.add(builder.asc(root.get("apellido")));
-        orders.add(builder.asc(root.get("nombre")));        
-        query.orderBy(orders);
-        // Ejecuto la consulta y guardo el resultado en una lista de Pais
-        contactos = (ArrayList<Contacto>) session.createQuery(query).list();
+        try {                    
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Contacto> query = builder.createQuery(Contacto.class);
+            Root<Contacto> root = query.from(Contacto.class);
+            query.select(root);
+            // Para que ordene por dos campos
+            List<Order> orders = new ArrayList<Order>();
+            orders.add(builder.asc(root.get("apellido")));
+            orders.add(builder.asc(root.get("nombre")));        
+            query.orderBy(orders);
+            // Ejecuto la consulta y guardo el resultado en una lista de Pais
+            contactos = (ArrayList<Contacto>) session.createQuery(query).list();
+        } catch(Exception exception) {
+            LOGGER.error("Excepcion:", exception);
+        }
         
         session.close();
         LOGGER.info("Finalizando");
