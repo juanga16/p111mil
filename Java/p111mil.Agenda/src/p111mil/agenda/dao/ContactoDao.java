@@ -14,16 +14,16 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import p111mil.agenda.modelo.Contacto;
-import p111mil.agenda.utilidades.ConfiguracionLogger;
 
 /**
  *
  * @author Invitado
  */
 public class ContactoDao {    
-       
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger("Agenda");
+    
     public void guardar(Contacto contacto) {                      
-        ConfiguracionLogger.info("Comenzando");
+        LOGGER.info("Comenzando");
         
         Session session = ConfiguracionHibernate.getSessionFactory().openSession();
         session.beginTransaction();        
@@ -33,16 +33,16 @@ public class ContactoDao {
             session.getTransaction().commit();        
         } catch(Exception exception) {
             session.getTransaction().rollback();
-            ConfiguracionLogger.debug(exception);
+            LOGGER.error(exception);
         }
         
         session.close();                
-        ConfiguracionLogger.info("Finalizando");
+        LOGGER.info("Finalizando");
     }   
     
     public List<Contacto> buscarTodos() {
         ArrayList<Contacto> contactos = new ArrayList<Contacto>();
-        ConfiguracionLogger.info("Comenzando");
+        LOGGER.info("Comenzando");
                 
         Session session = ConfiguracionHibernate.getSessionFactory().openSession();
             
@@ -59,7 +59,7 @@ public class ContactoDao {
         contactos = (ArrayList<Contacto>) session.createQuery(query).list();
         
         session.close();
-        ConfiguracionLogger.info("Finalizando");
+        LOGGER.info("Finalizando");
                 
         return contactos;
     }    
