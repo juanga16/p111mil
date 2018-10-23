@@ -6,7 +6,7 @@
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/agenda?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
     <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">juanga</property>
+    <property name="hibernate.connection.password">p111mil</property>
     <!-- Esto significa que va a imprimir las consultas en la consola -->
     <property name="show_sql">true</property>
     <!-- Agrego la refencia a los mapeos de cada clase -->
