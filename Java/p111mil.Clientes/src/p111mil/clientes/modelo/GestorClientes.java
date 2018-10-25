@@ -15,18 +15,22 @@ import java.util.List;
  * @author PC-MAESTRO
  */
 public class GestorClientes {
-    ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+    private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     
     public void agregarCliente(Cliente cliente) {
         clientes.add(cliente);
     }
     
+    /**
+     * Retorna el cliente con mayor promedio de facturacion
+     * @return 
+     */
     public Cliente obtenerClienteConMayorPromedio() {
         double mayorPromedio = 0;
         Cliente clienteConMayorPromedio = null;
         
         for (Cliente cliente : clientes) {
-            double promedio = cliente.getTotalFacturado() / cliente.getCantidadFacturas();
+            double promedio = cliente.getPromedioFacturacion();
             
             if (promedio > mayorPromedio) {
                 mayorPromedio = promedio;
@@ -37,22 +41,36 @@ public class GestorClientes {
         return clienteConMayorPromedio;        
     }
     
+    /**
+     * Ordena la lista de mayor a menor segun el total facturado.
+     * Devuelve los primeros tres elementos
+     * @return 
+     */
     public List<Cliente> obtenerTresClientesConMayorFacturacion() {
         ArrayList<Cliente> clientesOrdenados = (ArrayList<Cliente>) clientes.clone();
+        int tamanio = clientesOrdenados.size();
         
-        for(int i = 1; i < clientesOrdenados.size(); i++) {
-            for(int j = 0; j < clientesOrdenados.size() - 1; j++) {
-                if (clientesOrdenados.get(j).getTotalFacturado() > clientesOrdenados.get(i).getTotalFacturado()) {
-                    Cliente clienteTemporal = clientesOrdenados.get(j);
-                    clientesOrdenados.set(j, clientesOrdenados.get(j + 1));
-                    clientesOrdenados.set(j + 1, clienteTemporal);                    
-                }
+        for(int i = 0; i < tamanio - 1; i++) {
+            for(int j = 1; j < tamanio - i; j++) {
+                
+                if (clientesOrdenados.get(j - 1).getTotalFacturado() < clientesOrdenados.get(j).getTotalFacturado()) {
+                    // Guardo en una variable temporal el cliente antes de cambiarlo de posicion
+                    // El metodo set sirve para insertar un elemento en una posicion especifica reemplazando al existente
+                    Cliente clienteTemporal = clientesOrdenados.get(j - 1);
+                    clientesOrdenados.set(j - 1, clientesOrdenados.get(j));
+                    clientesOrdenados.set(j, clienteTemporal);
+                }                
             }
         }
         
-        return clientesOrdenados.subList(0, 2);
+        // De la lista ordenada a partir de la posicion 0 tomo los primeros 3 elementos
+        return clientesOrdenados.subList(0, 3);
     }
     
+    /**
+     * Devuelve la fecha del cliente con mayor antiguedad
+     * @return 
+     */
     public Date obtenerFechaUltimoCliente() {
         Date fechaUltimoCliente = null;
         
@@ -65,17 +83,22 @@ public class GestorClientes {
         return fechaUltimoCliente;
     }
     
+    /**
+     * Recorre la lista y si existe un cliente con ese nombre lo retorna
+     * @param nombreCliente
+     * @return 
+     */
     public Cliente buscarPorNombre(String nombreCliente) {
         Iterator<Cliente> iterator = clientes.iterator();
         
         while(iterator.hasNext()) {
             Cliente cliente = iterator.next();
             
-            if (cliente.getNombre().equals(nombreCliente)) {
+            if (cliente.getNombre().toLowerCase().equals(nombreCliente.toLowerCase())) {
                 return cliente;
             }
         }
         
         return null;
-    }       
+    }    
 }
