@@ -68,19 +68,20 @@ public class Cliente {
     public String toString() {
         return this.getNombre();
     }
-    
-    
-    
+        
     @Override
     public boolean equals(Object object) {
+        // 1. Verifico que no sea null
         if (object == null) {
             return false;
         }
         
+        // 2. Verifico que object sea una instancia de Cliente
         if (! (object instanceof Cliente)) {
             return false;
         }
         
+        // 3. Casteo o convierto object a Cliente y comparo el nombre
         Cliente cliente = (Cliente) object;
         
         return cliente.nombre.toLowerCase().equals(this.nombre.toLowerCase());

@@ -47,6 +47,7 @@ public class GestorClientes {
      * @return 
      */
     public List<Cliente> obtenerTresClientesConMayorFacturacion() {
+        // Duplicamos la lista de clientes
         ArrayList<Cliente> clientesOrdenados = (ArrayList<Cliente>) clientes.clone();
         int tamanio = clientesOrdenados.size();
         
@@ -74,6 +75,8 @@ public class GestorClientes {
     public Date obtenerFechaUltimoCliente() {
         Date fechaUltimoCliente = null;
         
+        // Las fechas en java se comparan con los metodos: after (posterior), before (anterior) o equals
+        // f1.before(f2) -> estoy preguntando si f1 es anterior a f2
         for(Cliente cliente : clientes) {
             if (fechaUltimoCliente == null || fechaUltimoCliente.after(cliente.getFechaAlta())) {
                 fechaUltimoCliente = cliente.getFechaAlta();
@@ -91,6 +94,7 @@ public class GestorClientes {
     public Cliente buscarPorNombre(String nombreCliente) {
         Iterator<Cliente> iterator = clientes.iterator();
         
+        // Nunca olvidar de preguntar si hay elemento siguiente        
         while(iterator.hasNext()) {
             Cliente cliente = iterator.next();
             
