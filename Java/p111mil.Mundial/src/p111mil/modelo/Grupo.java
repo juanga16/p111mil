@@ -6,68 +6,90 @@
 package p111mil.modelo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author Invitado
  */
 public class Grupo extends EtapaMundial {
-
+    // Listas paralelas para armar la tabla de posiciones
+    List<Equipo> equiposGrupo;
+    List<Integer> puntosEquipos;
+    
+    /**
+     * Calcula la tabla de posiciones y retorna los dos equipos clasificados
+     * @return Lista de equipos
+     */
     @Override
     public List<Equipo> getEquiposQueAvanzan() {
-        Map<Equipo, Integer> equipos = new HashMap<Equipo, Integer>();
+        // Inicializo las listas
+        equiposGrupo = new ArrayList<Equipo>();
+        puntosEquipos = new ArrayList<Integer>();
         
+        // Recorro todos los partidos para generar una lista con todos los equipos
         for(Partido partido : this.getPartidos()) {
-            Resultado resultado = partido.getResultado();
-            
-            if (resultado.ganoLocal()) {
-                agregarPuntos(equipos, partido.getLocal(), 3);
-            } else if (resultado.empate()) {
-                agregarPuntos(equipos, partido.getLocal(), 1);
-                agregarPuntos(equipos, partido.getVisitante(), 1);
-            } else {
-                agregarPuntos(equipos, partido.getVisitante(), 3);
+            addEquipoEnListaSiNoExiste(partido.getLocal());
+            addEquipoEnListaSiNoExiste(partido.getVisitante());
+        }
+        
+        // Recorro los equipos y sumo en la lista paralela los puntos segun el resultado
+        for(int i=0; i < equiposGrupo.size(); i++) {
+            for(Partido partido : this.getPartidos()) {
+                if (equiposGrupo.get(i).getNombre().equals(partido.getLocal().getNombre())) {
+                    if (partido.getResultado().ganoLocal()) {
+                        puntosEquipos.set(i, puntosEquipos.get(i) + 3);
+                    } else if (partido.getResultado().empate()) {
+                        puntosEquipos.set(i, puntosEquipos.get(i) + 1);
+                    }                    
+                } else if (equiposGrupo.get(i).getNombre().equals(partido.getVisitante().getNombre())) {
+                    if (partido.getResultado().empate()) {
+                        puntosEquipos.set(i, puntosEquipos.get(i) + 1);
+                    } else if (! partido.getResultado().ganoLocal()) {
+                        puntosEquipos.set(i, puntosEquipos.get(i) + 3);
+                    }
+                }
             }
         }
         
-        return obtenerEquiposQueAvanzan(equipos);
+        ordenarPosiciones();
+
+        // Retornamos los primeros dos equipos segun las posiciones
+        return equiposGrupo.subList(0, 2);
     }
     
-    private void agregarPuntos(Map<Equipo, Integer> equipos, Equipo equipo, int puntos) {
-        if (equipos.containsKey(equipo)) {
-            equipos.put(equipo, equipos.get(equipo) + puntos);
-        } else {
-            equipos.put(equipo, puntos);
+    /**
+     * Se fija si el equipo no fue todavia agregado en la lista interna y de ser asi lo agrega.
+     * Si el equipo ya existe no hace nada
+     * @param equipoParaAgregar 
+     */    
+    private void addEquipoEnListaSiNoExiste(Equipo equipoParaAgregar) {
+        for(Equipo equipoExistente : equiposGrupo) {
+            if (equipoExistente.getNombre().equals(equipoParaAgregar.getNombre())) {
+                return;
+            }
         }
+        
+        equiposGrupo.add(equipoParaAgregar);
+        puntosEquipos.add(0);
     }
-    
-    private List<Equipo> obtenerEquiposQueAvanzan(Map<Equipo, Integer> equipos) {
-        // Obtengo el equipo que gano el grupo
-        Equipo primero = null;
-        int puntosPrimero = 0;
-        for (Map.Entry<Equipo, Integer> equipo : equipos.entrySet()) {
-            if (equipo.getValue() > puntosPrimero) {
-                primero = equipo.getKey();
-                puntosPrimero = equipo.getValue();
+        
+    /**
+     * Ordena las listas paralelas de puntos y de equipos segun los puntos en forma descendente
+     */
+    private void ordenarPosiciones() {
+        for(int j = 0; j < puntosEquipos.size(); j++){
+            for(int i = j + 1; i < puntosEquipos.size(); i++){
+                if(puntosEquipos.get(i) > puntosEquipos.get(j)){
+                    int puntos = puntosEquipos.get(j);
+                    puntosEquipos.set(j, puntosEquipos.get(i));
+                    puntosEquipos.set(i, puntos);
+                    
+                    Equipo equipo = equiposGrupo.get(j);
+                    equiposGrupo.set(j, equiposGrupo.get(i));
+                    equiposGrupo.set(i, equipo);                    
+                }
             }
         }
-        
-        Equipo segundo = null;
-        int puntosSegundo = 0;
-        for (Map.Entry<Equipo, Integer> equipo : equipos.entrySet()) {
-            if (equipo.getValue() > puntosSegundo && equipo.getValue() != puntosPrimero) {
-                segundo = equipo.getKey();
-                puntosSegundo = equipo.getValue();
-            }
-        }
-        
-        List<Equipo> equiposQueAvanzan = new ArrayList<Equipo>();
-        equiposQueAvanzan.add(primero);
-        equiposQueAvanzan.add(segundo);
-        
-        return equiposQueAvanzan;
     }
 }

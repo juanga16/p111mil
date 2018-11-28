@@ -38,6 +38,9 @@ public abstract class EtapaMundial {
     
     public void addPartido(Partido partido) {
         this.partidos.add(partido);
+        
+        partido.getLocal().getPartidosJugados().add(partido);
+        partido.getVisitante().getPartidosJugados().add(partido);
     }
     
     public abstract List<Equipo> getEquiposQueAvanzan();    
