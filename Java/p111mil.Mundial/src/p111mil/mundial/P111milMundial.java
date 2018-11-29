@@ -82,5 +82,11 @@ public class P111milMundial {
         for(Equipo equipo : equiposQueAvanzanLlave) {
             System.out.println(equipo.getNombre());
         }
+        
+        System.out.println("Diferencia de goles");
+        System.out.println("Argentina: " + argentina.getDiferenciaDeGoles());
+        System.out.println("Italia: " + italia.getDiferenciaDeGoles());
+        System.out.println("Corea: " + corea.getDiferenciaDeGoles());
+        System.out.println("Bulgaria: " + bulgaria.getDiferenciaDeGoles());               
     }    
 }

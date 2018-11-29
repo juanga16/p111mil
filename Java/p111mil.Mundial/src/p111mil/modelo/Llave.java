@@ -29,6 +29,5 @@ public class Llave extends EtapaMundial {
         }
         
         return equipos;
-    }
-    
+    }    
 }

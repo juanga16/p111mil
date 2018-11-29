@@ -35,5 +35,26 @@ public class Equipo {
     public Equipo(String nombre) {
         this.partidosJugados = new ArrayList<Partido>();
         this.nombre = nombre;
-    }    
+    }
+    
+    public Equipo() {
+        this.partidosJugados = new ArrayList<Partido>();        
+    }
+    
+    public int getDiferenciaDeGoles() {
+        int golesFavor = 0;
+        int golesContra = 0;
+        
+        for(Partido partido : this.partidosJugados) {
+            if (partido.getLocal().nombre.equals(this.nombre)) {
+                golesFavor = golesFavor + partido.getResultado().getGolesLocal();
+                golesContra = golesContra + partido.getResultado().getGolesVisitante();
+            } else {
+                golesFavor = golesFavor + partido.getResultado().getGolesVisitante();
+                golesContra = golesContra + partido.getResultado().getGolesLocal();
+            }
+        }
+        
+        return golesFavor - golesContra;
+    }
 }
