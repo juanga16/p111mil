@@ -20,6 +20,7 @@ public class P111milHerencia {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        /*
         Profesor sergio = new Profesor("Sergio", "Schro", "412345");                
         Profesor juan = new Profesor("Juan", "D'Esposito", "423456");
         
@@ -41,5 +42,27 @@ public class P111milHerencia {
         System.out.println(sergio.darPresentacion());
         System.out.println(juanPerez.darPresentacion());
         curso.ListarPersonas();
+        */
+        
+        Alumno leo = new Alumno("Leo", "Espinoza", 1);
+        Alumno nacho = new Alumno("Nacho", "Coria", 2);
+        Alumno leo2 = leo;
+        Alumno leo3 = new Alumno("Leo", "Espinoza", 1);
+        Alumno leo4 = new Alumno("Leonardo Emanuel", "Espinoza", 5);
+        
+        System.out.println(leo.equals(nacho));
+        System.out.println(leo.equals(leo2));
+        System.out.println(leo.equals(leo3));
+        System.out.println(leo.equals(leo4));
+        
+        String nombre = "Juan";
+        String nombre2 = "juan";
+        String nombre3 = "juan;leo;nico";
+        
+        String[] arreglo = nombre3.split(";");
+        
+        
+        System.out.println(nombre.startsWith("ju"));
+        System.out.println(nombre.substring(2));
     }    
 }
