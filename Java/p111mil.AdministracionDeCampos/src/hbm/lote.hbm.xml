@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="model.Lote" table="lote">
+        <id name="numeroLote" type="integer">
+            <column name="numero_lote" />
+            <generator class="assigned" />
+        </id>
+        <property name="superficie" type="integer">
+            <column name="superficie" />
+        </property>        
+        <many-to-one name="campo" class="model.Campo" column="id_campo" cascade="none" not-null="true" insert="true" update="true" lazy="false"/>
+        <many-to-one name="tipoDeSuelo" class="model.TipoDeSuelo" column="id_tipo_de_suelo" cascade="none" not-null="true" insert="true" update="true" lazy="false"/>
+    </class>
+</hibernate-mapping>

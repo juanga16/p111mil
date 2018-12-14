@@ -20,7 +20,6 @@ public class P111milHerencia {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /*
         Profesor sergio = new Profesor("Sergio", "Schro", "412345");                
         Profesor juan = new Profesor("Juan", "D'Esposito", "423456");
         
@@ -33,16 +32,15 @@ public class P111milHerencia {
         Alumno luciaGomez = new Alumno("Lucia", "Gomez", 901);
         
         Curso curso = new Curso();
-        curso.AgregarProfesor(sergio);
-        curso.AgregarProfesor(juan);
-        curso.AgregarAlumno(juanPerez);
-        curso.AgregarAlumno(joseGarcia);
-        curso.AgregarAlumno(estebanQuito, luciaGomez);
+        curso.agregarProfesor(sergio);
+        curso.agregarProfesor(juan);
+        curso.agregarAlumno(juanPerez);
+        curso.agregarAlumno(joseGarcia);
+        curso.agregarAlumno(estebanQuito, luciaGomez);
         
         System.out.println(sergio.darPresentacion());
         System.out.println(juanPerez.darPresentacion());
-        curso.ListarPersonas();
-        */
+        curso.listarPersonas();
         
         Alumno leo = new Alumno("Leo", "Espinoza", 1);
         Alumno nacho = new Alumno("Nacho", "Coria", 2);
@@ -60,9 +58,10 @@ public class P111milHerencia {
         String nombre3 = "juan;leo;nico";
         
         String[] arreglo = nombre3.split(";");
-        
-        
+                
         System.out.println(nombre.startsWith("ju"));
         System.out.println(nombre.substring(2));
+        
+        curso.iterarAlumnos();
     }    
 }

@@ -6,6 +6,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,21 +18,21 @@ public class Curso {
     private ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
     private ArrayList<Profesor> profesores = new ArrayList<Profesor>();
     
-    public void AgregarAlumno(Alumno alumno) {
+    public void agregarAlumno(Alumno alumno) {
         alumnos.add(alumno);
     }
     
     // Este metodo tiene el mismo nombre que el anterior, pero diferentes parametros, lo estoy sobrecargando
-    public void AgregarAlumno(Alumno alumno1, Alumno alumno2) {
+    public void agregarAlumno(Alumno alumno1, Alumno alumno2) {
         alumnos.add(alumno1);
         alumnos.add(alumno2);
     }
     
-    public void AgregarProfesor(Profesor profesor) {
+    public void agregarProfesor(Profesor profesor) {
         profesores.add(profesor);
     }
     
-    public void ListarPersonas() {
+    public void listarPersonas() {
         ArrayList<Persona> personas = new ArrayList<Persona>();
         
         personas.addAll(alumnos);
@@ -44,6 +45,24 @@ public class Curso {
         System.out.println("Listado de personas:");
         for(Persona persona : personasOrdenadas) {
             System.out.println(persona.darPresentacion());
+        }
+    }
+    
+    public void iterarAlumnos() {
+        // 1. For each agregado en Java 5
+        for (Alumno alumno : this.alumnos) {
+            System.out.println(alumno);
+        }
+        
+        // 2. For clásico
+        for (int i=0; i<this.alumnos.size(); i++) {
+            System.out.println(this.alumnos.get(i));
+        }
+        
+        // 3. Iterators
+        for (Iterator<Alumno> iteratorAlumnos = this.alumnos.iterator(); iteratorAlumnos.hasNext();) {
+            Alumno alumno = iteratorAlumnos.next();
+            System.out.println(alumno);
         }
     }
 }

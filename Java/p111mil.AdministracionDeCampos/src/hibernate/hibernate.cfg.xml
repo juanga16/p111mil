@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/administracion_campos?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;useSSL=false</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">juanga</property>
+    <!-- Esto significa que va a imprimir las consultas en la consola -->
+    <property name="show_sql">true</property>
+    <!-- Agrego la refencia a los mapeos de cada clase -->
+    <mapping resource="hbm/estado_campo.hbm.xml"/>
+    <mapping resource="hbm/tipo_de_suelo.hbm.xml"/>
+    <mapping resource="hbm/campo.hbm.xml"/>
+    <mapping resource="hbm/lote.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

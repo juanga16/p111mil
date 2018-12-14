@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="model.Campo" table="campo">
+        <id name="idCampo" type="integer">
+            <column name="id_campo" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" />
+        </property>
+        <property name="superficie" type="integer">
+            <column name="superficie" />
+        </property>
+        <property name="fechaCreacion" type="date">
+            <column name="fecha_creacion" />
+        </property>        
+        <!-- Configuro la relacion 1:M con Lotes -->
+        <bag name="lotes" lazy="false" cascade="all" inverse="true">
+            <key column="id_campo" not-null="true" />
+            <one-to-many class="model.Lote" />
+        </bag>
+        <many-to-one name="estadoCampo" class="model.EstadoCampo" column="id_estado_campo" cascade="none" not-null="true" insert="true" update="true" lazy="false"/>
+    </class>
+</hibernate-mapping>

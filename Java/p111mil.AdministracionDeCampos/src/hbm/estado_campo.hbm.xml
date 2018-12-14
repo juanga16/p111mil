@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="model.EstadoCampo" table="estado_campo">
+        <id name="idEstadoCampo" type="integer">
+            <column name="id_estado_campo" />
+            <generator class="identity" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="descripcion" />
+        </property>
+        <!-- Configuro la relacion 1:M con Campos -->
+        <bag name="campos" lazy="false" inverse="true" cascade="all">
+            <key column="id_estado_campo" not-null="true" />
+            <one-to-many class="model.Campo" />
+        </bag>        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="model.TipoDeSuelo" table="tipo_de_suelo">
+        <id name="idTipoDeSuelo" type="integer">
+            <column name="id_tipo_de_suelo" />
+            <generator class="identity" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="descripcion" />
+        </property>
+        <!-- Configuro la relacion 1:M con Lotes -->
+        <bag name="lotes" lazy="false" inverse="true" cascade="all">
+            <key column="id_tipo_de_suelo" not-null="true" />
+            <one-to-many class="model.Lote" />
+        </bag>
+    </class>
+</hibernate-mapping>

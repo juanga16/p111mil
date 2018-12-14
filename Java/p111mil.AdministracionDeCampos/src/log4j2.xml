@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<Configuration status="ALL">
+    <Properties>
+        <Property name="log-path">./logs</Property>
+    </Properties>
+    <Appenders>      
+        <RollingFile name="RollingFile" fileName="${log-path}/Agenda.log" filePattern="${log-path}/Agenda-%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <!-- %C para imprimir el nombre de la clase, %M del metodo y %L la linea -->
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} Clase: %C Metodo: %M Linea: %L [%p]\t%m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- Para que genere un archivo .log por dia -->
+                <CronTriggeringPolicy schedule="0 0 12 1/1 * ? *" evaluateOnStartup="true"/>
+                <!-- Para que genere un archivo .log por minuto -->
+                <!--<CronTriggeringPolicy schedule="0 * * * * ?" evaluateOnStartup="true"/>-->
+                <!-- Si queremos establecer un tamaño maximo de archivo -->
+                <SizeBasedTriggeringPolicy size="50 MB" />
+            </Policies>            
+            <DefaultRolloverStrategy max="32" />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="Agenda" level="ALL">
+            <appender-ref ref="RollingFile" level="ALL" />
+        </Logger>
+    </Loggers>
+</Configuration>
