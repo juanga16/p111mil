@@ -22,6 +22,10 @@ import org.hibernate.Session;
 public class CampoDao {
     private static final Logger LOGGER = org.apache.log4j.Logger.getLogger("AdministracionDeCampos");
     
+    /**
+     * Inserta un nuevo campo y sus lotes en la base de datos
+     * @param campo 
+     */
     public void guardar(Campo campo) {                      
         LOGGER.info("Comenzando");
         
@@ -39,6 +43,11 @@ public class CampoDao {
         LOGGER.info("Finalizando");
     }   
     
+    /**
+     * Retorna verdadero si ya existe un campo con ese mismo nombre
+     * @param nombre
+     * @return boolean
+     */
     public boolean existeConMismoNombre(String nombre) {
         Session session = ConfiguracionHibernate.getSessionFactory().openSession();                        
         

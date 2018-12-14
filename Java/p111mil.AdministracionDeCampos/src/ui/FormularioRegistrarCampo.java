@@ -308,6 +308,7 @@ public class FormularioRegistrarCampo extends javax.swing.JFrame {
         
         labelErrorCampo.setVisible(false);
                 
+        // Valido los valores del campo
         String nombreDeCampo = textoNombreDeCampo.getText().trim();                
         if (nombreDeCampo.equals("")) {
             labelErrorCampo.setText("El nombre del campo es obligatorio");
@@ -361,6 +362,7 @@ public class FormularioRegistrarCampo extends javax.swing.JFrame {
             return;
         }
 
+        // Instancio el nuevo campo
         Campo campo = new Campo();
         
         campo.setNombre(nombreDeCampo);
@@ -368,6 +370,7 @@ public class FormularioRegistrarCampo extends javax.swing.JFrame {
         campo.setFechaCreacion(Calendar.getInstance().getTime());
         campo.setEstadoCampo(estadoCampoDao.buscarPorDefault());
         
+        // Inserto los lotes en el campo
         for(Lote lote : lotes) {
             lote.setCampo(campo);
             campo.getLotes().add(lote);          
@@ -377,6 +380,7 @@ public class FormularioRegistrarCampo extends javax.swing.JFrame {
         
         this.dispose();
         
+        // Una vez que se guardo correctamente muestro el detalle
         FormularioCampoRegistrado formularioCampoRegistrado = new FormularioCampoRegistrado(campo);
         formularioCampoRegistrado.setLocationRelativeTo(null); 
         formularioCampoRegistrado.setResizable(false);                

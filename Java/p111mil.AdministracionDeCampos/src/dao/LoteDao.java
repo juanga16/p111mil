@@ -14,6 +14,11 @@ import org.hibernate.Session;
  * @author admin
  */
 public class LoteDao {
+    /**
+     * Retorna verdadero si ya existe un lote con ese mismo numero
+     * @param numeroLote
+     * @return boolean
+     */
     public boolean existeConMismoNumero(int numeroLote) {
         Session session = ConfiguracionHibernate.getSessionFactory().openSession();                
         Lote lote = session.get(Lote.class, numeroLote);        

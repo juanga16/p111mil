@@ -19,6 +19,10 @@ import org.hibernate.Session;
  * @author admin
  */
 public class TipoDeSueloDao {
+    /**
+     * Retorna todos los tipos de suelo ordenados por descripcion
+     * @return 
+     */
     public List<TipoDeSuelo> buscarTodos() {
         Session session = ConfiguracionHibernate.getSessionFactory().openSession();                
         ArrayList<TipoDeSuelo> tipoSuelos = new ArrayList<TipoDeSuelo>();
@@ -27,7 +31,7 @@ public class TipoDeSueloDao {
         CriteriaQuery<TipoDeSuelo> query = builder.createQuery(TipoDeSuelo.class);
         Root<TipoDeSuelo> root = query.from(TipoDeSuelo.class);
         query.select(root);
-        query.orderBy(builder.asc(root.get("idTipoDeSuelo")));
+        query.orderBy(builder.asc(root.get("descripcion")));
         // Ejecuto la consulta y guardo el resultado en una lista de Pais
         tipoSuelos = (ArrayList<TipoDeSuelo>) session.createQuery(query).list();
             

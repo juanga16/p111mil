@@ -20,23 +20,11 @@ import org.hibernate.Session;
  * @author admin
  */
 public class EstadoCampoDao {
-    public List<EstadoCampo> buscarTodos() {
-        Session session = ConfiguracionHibernate.getSessionFactory().openSession();                
-        ArrayList<EstadoCampo> estadoCampos = new ArrayList<EstadoCampo>();
-        
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<EstadoCampo> query = builder.createQuery(EstadoCampo.class);
-        Root<EstadoCampo> root = query.from(EstadoCampo.class);
-        query.select(root);
-        query.orderBy(builder.asc(root.get("idEstadoCampo")));
-        // Ejecuto la consulta y guardo el resultado en una lista de Pais
-        estadoCampos = (ArrayList<EstadoCampo>) session.createQuery(query).list();
-            
-        session.close();
-
-        return estadoCampos;        
-    }
     
+    /**
+     * Retorna el valor por default que se asigna a los campos nuevos
+     * @return 
+     */
     public EstadoCampo buscarPorDefault() {
         Session session = ConfiguracionHibernate.getSessionFactory().openSession();                        
         
