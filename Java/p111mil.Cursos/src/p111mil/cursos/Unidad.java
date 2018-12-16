@@ -26,6 +26,11 @@ public class Unidad {
         this.alumnos = new ArrayList<String>();
     }
     
+    /**
+     * Dado un conjunto de respuestas de ejercicios retorna la puntuacion de la unidad
+     * @param respuestas
+     * @return puntaje de la unidad segun esas respuestas
+     */
     public float calificarEjercicios(List<String> respuestas) {
         float calificacion = 0;
         
@@ -37,5 +42,54 @@ public class Unidad {
         }
         
         return calificacion;
+    }
+    
+    public boolean esDeTema(String tema) {
+        return this.tema.equals(tema);
+    }
+    
+    public String getTema() {
+        return this.tema;
+    }
+    
+    public float getCalificacion(String alumno) {        
+        float calificacion = -1;        
+        int posicionAlumno = this.getPosicionAlumno(alumno);
+        
+        if (posicionAlumno != -1) {
+            calificacion = calificarEjercicios(this.respuestasAlumnos.get(posicionAlumno));
+        }
+        
+        return calificacion;        
+    }
+    
+    private int getPosicionAlumno(String alumno) {
+        int posicionAlumno = -1;
+        
+        for(int i = 0; i<this.alumnos.size(); i++) {
+            if(this.alumnos.get(i).equals(alumno)) {
+                posicionAlumno = i;
+                break;
+            }
+        }
+        
+        return posicionAlumno;
+    }
+    
+    public boolean addRespuestas(String alumno, List<String> respuestas) {
+        int posicionAlumno = this.getPosicionAlumno(alumno);
+        
+        if (posicionAlumno == -1) {
+            this.alumnos.add(alumno);
+            this.respuestasAlumnos.add(respuestas);
+            
+            return true;
+        }
+        
+        return false;
+    }
+
+    void addEjercicio(Ejercicio ejercicio) {
+        this.ejercicios.add(ejercicio);
     }
 }
