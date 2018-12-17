@@ -34,10 +34,13 @@ public class Curso {
     }
     
     public boolean addRespuestas(String temaUnidad, String alumno, List<String> respuestas) {
+        // Primero me fijo si existe la unidad
         Unidad unidad = getUnidadPorTema(temaUnidad);
         
         if (unidad == null) {
+            // Como la unidad no existe la creo y la agrego en la lista
             unidad = new Unidad(temaUnidad);
+            this.unidades.add(unidad);
         }
         
         return unidad.addRespuestas(alumno, respuestas);

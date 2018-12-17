@@ -77,15 +77,18 @@ public class Unidad {
     }
     
     public boolean addRespuestas(String alumno, List<String> respuestas) {
+        // Me fijo si el alumno ya agrego sus respuestas. Hay un paralelismo entre las listas de alumnos y respuestas
         int posicionAlumno = this.getPosicionAlumno(alumno);
         
         if (posicionAlumno == -1) {
+            // El alumno todavia no entrego sus respuestas asi que agrego a las listas
             this.alumnos.add(alumno);
             this.respuestasAlumnos.add(respuestas);
             
             return true;
         }
         
+        // El alumno ya habia entregado las respuestas
         return false;
     }
 
